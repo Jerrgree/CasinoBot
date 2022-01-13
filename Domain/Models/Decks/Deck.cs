@@ -40,7 +40,10 @@ namespace Domain.Models.Decks
 
             for (int i = 0; i < totalNumberOfCardsToDeal; i++)
             {
-                handsToDeal[i % numberOfPlayers] ??= new List<T>();
+                if (i < numberOfPlayers)
+                {
+                    handsToDeal.Add(new List<T>());
+                }
                 handsToDeal[i % numberOfPlayers].Add(_cards[i]);
             }
 
