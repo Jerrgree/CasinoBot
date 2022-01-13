@@ -8,11 +8,6 @@
         int Count { get; }
 
         /// <summary>
-        /// Outputs a string display of this hand
-        /// </summary>
-        string Display { get; }
-
-        /// <summary>
         /// Adds a new card to the hand, hidden from the table
         /// </summary>
         /// <param name="card">The new card to be added</param>
@@ -29,23 +24,25 @@
         /// Accesses the indicated card
         /// </summary>
         /// <param name="index">The index of the card to retrieve</param>
-        /// <returns>The specified card</returns>
-        T this[int index]
+        /// <exception cref="IndexOutOfRangeException">Thrown when attempting to access an index outside of the hand's range</exception>
+        /// <returns>The specified card, along with it's access level</returns>
+        (T Card, bool isPublic) this[int index]
         {
             get;
-            set;
         }
 
         /// <summary>
         /// Removes the given card from the hand. 
         /// </summary>
         /// <param name="index">The index of the card to remove</param>
+        /// <exception cref="IndexOutOfRangeException">Thrown when attempting to access an index outside of the hand's range</exception>
         /// <returns>The removed card</returns>
         T RemoveAt(int index);
 
         /// <summary>
         /// Randomizes the hand
         /// </summary>
+        /// <exception cref="InvalidOperationException">Thrown when called on an empty hand</exception>
         void Shuffle();
     }
 }
