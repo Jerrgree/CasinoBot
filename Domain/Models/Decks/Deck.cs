@@ -1,4 +1,5 @@
-﻿using Domain.Interfaces;
+﻿using Common.Extensions;
+using Domain.Interfaces;
 
 namespace Domain.Models.Decks
 {
@@ -49,7 +50,8 @@ namespace Domain.Models.Decks
 
         public void Shuffle()
         {
-            throw new NotImplementedException();
+            if (Count == 0) throw new InvalidOperationException("The deck is currently empty");
+            _cards = (List<T>)_cards.Shuffle();
         }
     }
 }
