@@ -7,6 +7,7 @@ namespace Domain.Models.StandardPlayingCards
     {
         public StandardPlayingCardFace Face { get; private set; }
         public StandardPlayingCardSuit Suit { get; private set; }
+        public string Display => $"{Face} of {Suit}";
 
         public StandardPlayingCard(StandardPlayingCardFace face, StandardPlayingCardSuit suit)
         {
