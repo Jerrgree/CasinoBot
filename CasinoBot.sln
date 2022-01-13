@@ -5,7 +5,9 @@ VisualStudioVersion = 17.0.32014.148
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CasinoBot", "CasinoBot\CasinoBot.csproj", "{A3DCBCFC-4C8F-4C7B-8ED8-1526289F5DC3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "Domain\Domain.csproj", "{8F3EFCAA-E686-4D7E-A569-206B6B6A7417}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain", "Domain\Domain.csproj", "{8F3EFCAA-E686-4D7E-A569-206B6B6A7417}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "Common\Common.csproj", "{6304AF74-2A82-4CB2-A440-91ED0EBCF9D2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{8F3EFCAA-E686-4D7E-A569-206B6B6A7417}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8F3EFCAA-E686-4D7E-A569-206B6B6A7417}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8F3EFCAA-E686-4D7E-A569-206B6B6A7417}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6304AF74-2A82-4CB2-A440-91ED0EBCF9D2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6304AF74-2A82-4CB2-A440-91ED0EBCF9D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6304AF74-2A82-4CB2-A440-91ED0EBCF9D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6304AF74-2A82-4CB2-A440-91ED0EBCF9D2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
