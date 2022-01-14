@@ -6,33 +6,28 @@ namespace Domain.Models.Hands
 {
     public class Hand<T> : IHand<T> where T : ICard
     {
-        private List<(T Card, bool isPublic)> _cards;
+        private List<T> _cards;
 
         public int Count => _cards.Count;
 
         public Hand()
         {
-            _cards = new List<(T, bool)>();
+            _cards = new List<T>();
         }
 
-        public (T Card, bool isPublic) this[int index] 
+        public T this[int index] 
         { 
             get => _cards[index];
         }
 
         public void AddCard(T card)
         {
-            AddCard(card, false);
-        }
-
-        public void AddCard(T card, bool isPublic)
-        {
-            _cards.Add((card, isPublic));
+            _cards.Add(card);
         }
 
         public T RemoveAt(int index)
         {
-            var card = _cards[index].Card;
+            var card = _cards[index];
             _cards.RemoveAt(index);
             return card;
         }
@@ -45,7 +40,7 @@ namespace Domain.Models.Hands
 
         #region IEnumerable
 
-        public IEnumerator<(T Card, bool isPublic)> GetEnumerator()
+        public IEnumerator<T> GetEnumerator()
         {
             return _cards.GetEnumerator();
         }
