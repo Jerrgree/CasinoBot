@@ -1,15 +1,22 @@
 ﻿using Domain.Interfaces;
 using Domain.Models.StandardPlayingCards;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Games.BlackJack.Domain.Models
 {
-    internal class Player
+    public class Player
     {
-        internal IHand<StandardPlayingCard> Hand { get; }
+        public IHand<StandardPlayingCard> Hand { get; }
+
+
+
+        public readonly int ComputeScore(bool usePublicOnlyCards)
+        {
+            foreach (var card in Hand)
+            {
+
+            }
+
+            return 1;
+        }
     }
 }
