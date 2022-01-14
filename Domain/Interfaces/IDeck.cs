@@ -32,5 +32,17 @@
         /// <param name="numberOfCards"></param>
         /// <returns></returns>
         public IEnumerable<IEnumerable<T>> Deal(int numberOfPlayers, int numberOfCards);
+
+        /// <summary>
+        /// Adds a single card to the bottom of the deck
+        /// </summary>
+        /// <param name="card">The card to add</param>
+        public void Add(T card);
+
+        /// <summary>
+        /// Adds multiple cards to the bottom of the deck
+        /// </summary>
+        /// <param name="cards">The cards to add</param>
+        public void Add(IEnumerable<T> cards);
     }
 }
