@@ -1,4 +1,4 @@
-﻿namespace Domain.Interfaces
+﻿namespace CasinoBot.Domain.Interfaces
 {
     /// <summary>
     /// A hand that tracks a provided state of each card

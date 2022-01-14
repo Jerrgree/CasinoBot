@@ -1,8 +1,8 @@
-﻿using Common.Extensions;
-using Domain.Interfaces;
+﻿using CasinoBot.Domain.Interfaces;
+using CasinoBot.Common.Extensions;
 using System.Collections;
 
-namespace Domain.Models.Hands
+namespace CasinoBot.Domain.Models.Hands
 {
     public class StatefulHand<T, U> : IStatefulHand<T, U> where T : ICard where U : class, new()
     {
