@@ -2,7 +2,7 @@
 using CasinoBot.Domain.Interfaces;
 using CasinoBot.Domain.Models.StandardPlayingCards;
 
-namespace Games.BlackJack.Domain.Models
+namespace CasinoBot.Games.BlackJack.Domain.Models
 {
     public class Player
     {
