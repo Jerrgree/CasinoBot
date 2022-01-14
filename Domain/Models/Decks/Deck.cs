@@ -1,7 +1,7 @@
-﻿using Common.Extensions;
-using Domain.Interfaces;
+﻿using CasinoBot.Common.Extensions;
+using CasinoBot.Domain.Interfaces;
 
-namespace Domain.Models.Decks
+namespace CasinoBot.Domain.Models.Decks
 {
     public class Deck<T> : IDeck<T> where T : ICard
     {
