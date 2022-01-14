@@ -1,8 +1,8 @@
-﻿using Common.Extensions;
-using Domain.Interfaces;
+﻿using CasinoBot.Common.Extensions;
+using CasinoBot.Domain.Interfaces;
 using System.Collections;
 
-namespace Domain.Models.Hands
+namespace CasinoBot.Domain.Models.Hands
 {
     public class Hand<T> : IHand<T> where T : ICard
     {
