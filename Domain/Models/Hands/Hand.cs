@@ -15,10 +15,7 @@ namespace Domain.Models.Hands
             _cards = new List<T>();
         }
 
-        public T this[int index] 
-        { 
-            get => _cards[index];
-        }
+        public T this[int index] => _cards[index];
 
         public void AddCard(T card)
         {
