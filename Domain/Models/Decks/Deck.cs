@@ -56,5 +56,15 @@ namespace Domain.Models.Decks
             if (Count == 0) throw new InvalidOperationException("The deck is currently empty");
             _cards = (List<T>)_cards.Shuffle();
         }
+
+        public void Add(T card)
+        {
+            _cards.Add(card);
+        }
+
+        public void Add(IEnumerable<T> cards)
+        {
+            _cards.AddRange(cards);
+        }
     }
 }
