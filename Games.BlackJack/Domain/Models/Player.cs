@@ -1,6 +1,6 @@
-﻿using Domain.Enums.StandardPlayingCards;
-using Domain.Interfaces;
-using Domain.Models.StandardPlayingCards;
+﻿using CasinoBot.Domain.Enums.StandardPlayingCards;
+using CasinoBot.Domain.Interfaces;
+using CasinoBot.Domain.Models.StandardPlayingCards;
 
 namespace Games.BlackJack.Domain.Models
 {
