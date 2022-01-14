@@ -1,4 +1,4 @@
-﻿namespace Domain.Enums.StandardPlayingCards
+﻿namespace CasinoBot.Domain.Enums.StandardPlayingCards
 {
     public enum StandardPlayingCardSuit
     {

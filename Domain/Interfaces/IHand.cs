@@ -1,4 +1,4 @@
-﻿namespace Domain.Interfaces
+﻿namespace CasinoBot.Domain.Interfaces
 {
     public interface IHand<T> : IEnumerable<T> where T : ICard
     {
