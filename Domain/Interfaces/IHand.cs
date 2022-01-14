@@ -1,6 +1,6 @@
 ﻿namespace Domain.Interfaces
 {
-    public interface IHand<T> where T : ICard
+    public interface IHand<T> : IEnumerable<(T Card, bool isPublic)> where T : ICard
     {
         /// <summary>
         /// Retrieves the number of cards in this hand

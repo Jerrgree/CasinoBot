@@ -1,5 +1,6 @@
 ﻿using Common.Extensions;
 using Domain.Interfaces;
+using System.Collections;
 
 namespace Domain.Models.Hands
 {
@@ -41,5 +42,19 @@ namespace Domain.Models.Hands
             if (Count == 0) throw new InvalidOperationException("The hand is currently empty");
             _cards.Shuffle();
         }
+
+        #region IEnumerable
+
+        public IEnumerator<(T Card, bool isPublic)> GetEnumerator()
+        {
+            return _cards.GetEnumerator();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
+
+        #endregion
     }
 }
