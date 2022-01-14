@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.32014.148
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CasinoBot", "CasinoBot\CasinoBot.csproj", "{A3DCBCFC-4C8F-4C7B-8ED8-1526289F5DC3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CasinoBot.Console", "CasinoBot\CasinoBot.Console.csproj", "{A3DCBCFC-4C8F-4C7B-8ED8-1526289F5DC3}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain", "Domain\Domain.csproj", "{8F3EFCAA-E686-4D7E-A569-206B6B6A7417}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CasinoBot.Domain", "Domain\CasinoBot.Domain.csproj", "{8F3EFCAA-E686-4D7E-A569-206B6B6A7417}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Common", "Common\Common.csproj", "{6304AF74-2A82-4CB2-A440-91ED0EBCF9D2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CasinoBot.Common", "Common\CasinoBot.Common.csproj", "{6304AF74-2A82-4CB2-A440-91ED0EBCF9D2}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Games", "Games", "{91FC8876-A275-4FFA-B835-697C60897AB0}"
 EndProject

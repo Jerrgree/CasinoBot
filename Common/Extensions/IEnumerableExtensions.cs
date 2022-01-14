@@ -1,4 +1,4 @@
-﻿namespace Common.Extensions
+﻿namespace CasinoBot.Common.Extensions
 {
     public static class IEnumerableExtensions
     {

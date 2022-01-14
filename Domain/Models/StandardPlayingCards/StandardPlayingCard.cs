@@ -1,8 +1,8 @@
-﻿using Domain.Enums.StandardPlayingCards;
-using Domain.Interfaces;
-using Domain.Models.Decks;
+﻿using CasinoBot.Domain.Enums.StandardPlayingCards;
+using CasinoBot.Domain.Interfaces;
+using CasinoBot.Domain.Models.Decks;
 
-namespace Domain.Models.StandardPlayingCards
+namespace CasinoBot.Domain.Models.StandardPlayingCards
 {
     public class StandardPlayingCard : ISortableCard<StandardPlayingCard>
     {
@@ -38,7 +38,7 @@ namespace Domain.Models.StandardPlayingCards
         #region Equality
 
         public static bool operator ==(StandardPlayingCard rhs, StandardPlayingCard lhs) => rhs.Equals(lhs);
-        public static bool operator !=(StandardPlayingCard lhs, StandardPlayingCard rhs) => !(rhs.Equals(lhs));
+        public static bool operator !=(StandardPlayingCard lhs, StandardPlayingCard rhs) => !rhs.Equals(lhs);
 
         public override bool Equals(object? obj)
         {
@@ -54,7 +54,7 @@ namespace Domain.Models.StandardPlayingCards
             // null does not equal null
             if (other is null) return false;
 
-            return other.Face == this.Face;
+            return other.Face == Face;
         }
 
         public override int GetHashCode()
@@ -75,7 +75,7 @@ namespace Domain.Models.StandardPlayingCards
         {
             if (other is null) return 1;
 
-            return ((int)other.Face).CompareTo((int)this.Face);
+            return ((int)other.Face).CompareTo((int)Face);
         }
 
         #endregion
