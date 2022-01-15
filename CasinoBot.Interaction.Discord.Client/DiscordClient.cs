@@ -18,14 +18,10 @@ namespace CasinoBot.Interaction.Discord.Client
         {
             if (string.IsNullOrWhiteSpace(token)) throw new ArgumentNullException(nameof(token));
             _token = token;
-            //_serviceProvider = serviceProvider;
+            _serviceProvider = serviceProvider;
             _debugGuildId = debugGuildId;
 
             _client = new DiscordSocketClient();
-            _serviceProvider = new ServiceCollection()
-            .AddSingleton(x => new InteractionService(_client.Rest))
-            .BuildServiceProvider();
-
             _interactionService = new InteractionService(_client.Rest);
 
             _client.Ready += OnClientReady;
