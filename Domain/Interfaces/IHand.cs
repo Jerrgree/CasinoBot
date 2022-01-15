@@ -36,6 +36,7 @@
         /// Randomizes the hand
         /// </summary>
         /// <exception cref="InvalidOperationException">Thrown when called on an empty hand</exception>
-        void Shuffle();
+        /// <returns>The shuffled hand</returns>
+        IHand<T> Shuffle();
     }
 }

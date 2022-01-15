@@ -51,10 +51,11 @@ namespace CasinoBot.Domain.Models.Decks
             return handsToDeal;
         }
 
-        public void Shuffle()
+        public IDeck<T> Shuffle()
         {
             if (Count == 0) throw new InvalidOperationException("The deck is currently empty");
             _cards = (List<T>)_cards.Shuffle();
+            return this;
         }
 
         public void Add(T card)
