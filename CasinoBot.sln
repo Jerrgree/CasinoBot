@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CasinoBot.Common", "Common\
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CasinoBot.Games", "CasinoBot.Games", "{91FC8876-A275-4FFA-B835-697C60897AB0}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Games.BlackJack", "Games.BlackJack\Games.BlackJack.csproj", "{914A5469-6324-4ABA-8391-4535EE9E27CC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CasinoBot.Games.BlackJack", "Games.BlackJack\CasinoBot.Games.BlackJack.csproj", "{914A5469-6324-4ABA-8391-4535EE9E27CC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
