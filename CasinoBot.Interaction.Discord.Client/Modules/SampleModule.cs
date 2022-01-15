@@ -4,7 +4,7 @@ using Discord.WebSocket;
 
 namespace CasinoBot.Interaction.Discord.Client.Modules
 {
-    public class DrawCardsModule : InteractionModuleBase
+    public class SampleModule : InteractionModuleBase
     {
         [SlashCommand("echo", "Echo an input")]
         public async Task Echo([Summary(description: "Echo this input")] string input)

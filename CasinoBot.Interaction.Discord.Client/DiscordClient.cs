@@ -110,7 +110,6 @@ namespace CasinoBot.Interaction.Discord.Client
 
         #endregion
 
-
         private async Task OnClientReady()
         {
             try
