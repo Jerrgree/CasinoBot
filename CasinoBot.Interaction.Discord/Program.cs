@@ -1,5 +1,6 @@
 ﻿using CasinoBot.Interaction.Discord.Client;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 
 var config = new ConfigurationBuilder()
                 .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
@@ -7,7 +8,9 @@ var config = new ConfigurationBuilder()
 
 var discordSettings = config.GetSection("DiscordConfig");
 
-var discordClient = new DiscordClient(discordSettings["token"]);
+_ = ulong.TryParse(discordSettings["debugGuildId"], out ulong debugGuildId);
+
+var discordClient = new DiscordClient(discordSettings["token"], new ServiceCollection().BuildServiceProvider(), debugGuildId);
 
 try
 {
@@ -15,7 +18,7 @@ try
 
     await discordClient.Start();
 
-    var endTime = DateTime.UtcNow.AddMinutes(2);
+    var endTime = DateTime.UtcNow.AddMinutes(20);
 
     do
     {
