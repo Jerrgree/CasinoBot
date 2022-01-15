@@ -7,7 +7,7 @@ namespace CasinoBot.Interaction.Discord.Client.Modules
     public class DrawCardsModule : InteractionModuleBase
     {
         [SlashCommand("echo", "Echo an input")]
-        public async Task Echo([Summary(description: "Echo this input")]string input)
+        public async Task Echo([Summary(description: "Echo this input")] string input)
         {
             await RespondAsync(input);
         }
