@@ -14,8 +14,13 @@ namespace CasinoBot.Interaction.Discord.Client.Modules
 
             var embed = new EmbedBuilder()
                 .WithTitle("Cards")
-                .WithDescription(string.Join(" ", cards.Select(c => Formatting.FormatStandardPlayingCard(c))))
+                .WithDescription("Your cards:")
                 .WithColor(Color.DarkRed);
+
+            foreach(var card in cards)
+            {
+                embed.AddField("\u200b", Formatting.FormatStandardPlayingCard(card), true);
+            }
             await RespondAsync(embed: embed.Build());
         }
     }
