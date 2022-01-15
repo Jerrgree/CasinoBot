@@ -29,10 +29,11 @@ namespace CasinoBot.Domain.Models.Hands
             return card;
         }
 
-        public void Shuffle()
+        public IHand<T> Shuffle()
         {
             if (Count == 0) throw new InvalidOperationException("The hand is currently empty");
             _cards.Shuffle();
+            return this;
         }
 
         #region IEnumerable

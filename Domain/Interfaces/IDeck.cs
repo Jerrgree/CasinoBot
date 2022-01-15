@@ -10,7 +10,8 @@
         /// <summary>
         /// Shuffles the remaining cards in the deck
         /// </summary>
-        public void Shuffle();
+        /// <returns>The shuffled deck</returns>
+        public IDeck<T> Shuffle();
 
         /// <summary>
         /// Draws a single card from the top of the deck
