@@ -15,10 +15,7 @@ namespace CasinoBot.Domain.Models.Hands
             _cards = new List<T>();
         }
 
-        public T this[int index]
-        {
-            get => _cards[index];
-        }
+        public T this[int index] => _cards[index];
 
         public void AddCard(T card)
         {
@@ -32,10 +29,11 @@ namespace CasinoBot.Domain.Models.Hands
             return card;
         }
 
-        public void Shuffle()
+        public IHand<T> Shuffle()
         {
             if (Count == 0) throw new InvalidOperationException("The hand is currently empty");
             _cards.Shuffle();
+            return this;
         }
 
         #region IEnumerable
