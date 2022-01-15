@@ -3,19 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.32014.148
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CasinoBot.Console", "CasinoBot\CasinoBot.Console.csproj", "{A3DCBCFC-4C8F-4C7B-8ED8-1526289F5DC3}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CasinoBot.Interaction", "CasinoBot.Interaction", "{2F6CB5B5-B069-41D2-8055-E8D184078F46}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CasinoBot.Domain", "Domain\CasinoBot.Domain.csproj", "{8F3EFCAA-E686-4D7E-A569-206B6B6A7417}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CasinoBot.Interaction.Discord", "CasinoBot.Interaction.Discord", "{0D4F805F-C63E-40FD-8165-36A13A54FEF8}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CasinoBot.Common", "Common\CasinoBot.Common.csproj", "{6304AF74-2A82-4CB2-A440-91ED0EBCF9D2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CasinoBot.Interaction.Discord.Client", "CasinoBot.Interaction.Discord.Client\CasinoBot.Interaction.Discord.Client.csproj", "{E44AD01F-0DB3-45E7-8F97-EDD3A57F22D2}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Interaction", "Interaction", "{2F6CB5B5-B069-41D2-8055-E8D184078F46}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CasinoBot.Common", "CasinoBot.Common\CasinoBot.Common.csproj", "{C37C4412-8085-4C23-A376-BED53EBABC5F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CasinoBot.Interaction.Discord.Runtime", "CasinoBot.Interaction.Discord\CasinoBot.Interaction.Discord.Runtime.csproj", "{22A63454-A4F7-455E-9031-89A15AB5E1F5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CasinoBot.Domain", "CasinoBot.Domain\CasinoBot.Domain.csproj", "{9A98D78E-97BB-4CE9-9497-729401BB3A7C}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Discord", "Discord", "{0D4F805F-C63E-40FD-8165-36A13A54FEF8}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CasinoBot.Interaction.Discord.Client", "CasinoBot.Interaction.Discord.Client\CasinoBot.Interaction.Discord.Client.csproj", "{E44AD01F-0DB3-45E7-8F97-EDD3A57F22D2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CasinoBot.Interaction.Discord.Runtime", "CasinoBot.Interaction.Discord.Runtime\CasinoBot.Interaction.Discord.Runtime.csproj", "{0A9B7CAA-19AE-4504-8F77-26868C6227F6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,34 +21,30 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{A3DCBCFC-4C8F-4C7B-8ED8-1526289F5DC3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A3DCBCFC-4C8F-4C7B-8ED8-1526289F5DC3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A3DCBCFC-4C8F-4C7B-8ED8-1526289F5DC3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A3DCBCFC-4C8F-4C7B-8ED8-1526289F5DC3}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8F3EFCAA-E686-4D7E-A569-206B6B6A7417}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8F3EFCAA-E686-4D7E-A569-206B6B6A7417}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8F3EFCAA-E686-4D7E-A569-206B6B6A7417}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8F3EFCAA-E686-4D7E-A569-206B6B6A7417}.Release|Any CPU.Build.0 = Release|Any CPU
-		{6304AF74-2A82-4CB2-A440-91ED0EBCF9D2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6304AF74-2A82-4CB2-A440-91ED0EBCF9D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6304AF74-2A82-4CB2-A440-91ED0EBCF9D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6304AF74-2A82-4CB2-A440-91ED0EBCF9D2}.Release|Any CPU.Build.0 = Release|Any CPU
-		{22A63454-A4F7-455E-9031-89A15AB5E1F5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{22A63454-A4F7-455E-9031-89A15AB5E1F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{22A63454-A4F7-455E-9031-89A15AB5E1F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{22A63454-A4F7-455E-9031-89A15AB5E1F5}.Release|Any CPU.Build.0 = Release|Any CPU
 		{E44AD01F-0DB3-45E7-8F97-EDD3A57F22D2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{E44AD01F-0DB3-45E7-8F97-EDD3A57F22D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E44AD01F-0DB3-45E7-8F97-EDD3A57F22D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E44AD01F-0DB3-45E7-8F97-EDD3A57F22D2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C37C4412-8085-4C23-A376-BED53EBABC5F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C37C4412-8085-4C23-A376-BED53EBABC5F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C37C4412-8085-4C23-A376-BED53EBABC5F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C37C4412-8085-4C23-A376-BED53EBABC5F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9A98D78E-97BB-4CE9-9497-729401BB3A7C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9A98D78E-97BB-4CE9-9497-729401BB3A7C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9A98D78E-97BB-4CE9-9497-729401BB3A7C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9A98D78E-97BB-4CE9-9497-729401BB3A7C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0A9B7CAA-19AE-4504-8F77-26868C6227F6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0A9B7CAA-19AE-4504-8F77-26868C6227F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0A9B7CAA-19AE-4504-8F77-26868C6227F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0A9B7CAA-19AE-4504-8F77-26868C6227F6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{22A63454-A4F7-455E-9031-89A15AB5E1F5} = {0D4F805F-C63E-40FD-8165-36A13A54FEF8}
 		{0D4F805F-C63E-40FD-8165-36A13A54FEF8} = {2F6CB5B5-B069-41D2-8055-E8D184078F46}
 		{E44AD01F-0DB3-45E7-8F97-EDD3A57F22D2} = {0D4F805F-C63E-40FD-8165-36A13A54FEF8}
+		{0A9B7CAA-19AE-4504-8F77-26868C6227F6} = {0D4F805F-C63E-40FD-8165-36A13A54FEF8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {79560785-B599-4BE8-8E44-CC5EEE80CD62}
