@@ -15,8 +15,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CasinoBot.Domain", "CasinoB
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CasinoBot.Interaction.Discord.Runtime", "CasinoBot.Interaction.Discord.Runtime\CasinoBot.Interaction.Discord.Runtime.csproj", "{0A9B7CAA-19AE-4504-8F77-26868C6227F6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CasinoBot.Interaction.Discord.Client", "CasinoBot.Interaction.Discord.Client\CasinoBot.Interaction.Discord.Client.csproj", "{E44AD01F-0DB3-45E7-8F97-EDD3A57F22D2}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CasinoBot.Games", "CasinoBot.Games", "{91FC8876-A275-4FFA-B835-697C60897AB0}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CasinoBot.Games.BlackJack", "Games.BlackJack\CasinoBot.Games.BlackJack.csproj", "{914A5469-6324-4ABA-8391-4535EE9E27CC}"
