@@ -20,7 +20,7 @@ namespace CasinoBot.Interaction.Discord.Client.Helpers
                 StandardPlayingCardFace.Seven => ":seven:",
                 StandardPlayingCardFace.Eight => ":eight:",
                 StandardPlayingCardFace.Nine => ":nine:",
-                StandardPlayingCardFace.Ten => ":ten:",
+                StandardPlayingCardFace.Ten => ":keycap_ten:",
                 StandardPlayingCardFace.Jack => ":regional_indicator_j:",
                 StandardPlayingCardFace.Queen => ":regional_indicator_q:",
                 StandardPlayingCardFace.King => ":regional_indicator_k:",
