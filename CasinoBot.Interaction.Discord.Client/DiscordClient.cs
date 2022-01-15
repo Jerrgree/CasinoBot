@@ -1,7 +1,7 @@
 ﻿using Discord;
 using Discord.Interactions;
 using Discord.WebSocket;
-using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Configuration;
 using System.Reflection;
 
 namespace CasinoBot.Interaction.Discord.Client
@@ -14,10 +14,16 @@ namespace CasinoBot.Interaction.Discord.Client
         private readonly IServiceProvider _serviceProvider;
         private readonly ulong? _debugGuildId;
 
-        public DiscordClient(string token, IServiceProvider serviceProvider, ulong? debugGuildId = null)
+        public DiscordClient(IConfiguration configuration, IServiceProvider serviceProvider)
         {
-            if (string.IsNullOrWhiteSpace(token)) throw new ArgumentNullException(nameof(token));
-            _token = token;
+            var discordSettings = configuration.GetSection("DiscordConfig");
+
+            if (!discordSettings.Exists()) throw new ArgumentException("There is no DiscordConfig section of the provided configuration", nameof(configuration));
+
+            _ = ulong.TryParse(discordSettings["debugGuildId"], out ulong debugGuildId);
+            _token = discordSettings["token"];
+
+            if (string.IsNullOrWhiteSpace(_token)) throw new InvalidOperationException("No token could be located in the provided configuration");
             _serviceProvider = serviceProvider;
             _debugGuildId = debugGuildId;
 

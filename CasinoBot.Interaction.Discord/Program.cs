@@ -4,16 +4,19 @@ using Microsoft.Extensions.DependencyInjection;
 
 var config = new ConfigurationBuilder()
                 .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
-                .AddJsonFile("discordSettings.json").Build();
+                .AddJsonFile("discordSettings.json")
+                .Build();
 
-var discordSettings = config.GetSection("DiscordConfig");
+var serviceProvider = new ServiceCollection()
+    .AddTransient<IConfiguration>(_ => config)
+    .AddScoped<DiscordClient>()
+    .BuildServiceProvider();
 
-_ = ulong.TryParse(discordSettings["debugGuildId"], out ulong debugGuildId);
-
-var discordClient = new DiscordClient(discordSettings["token"], new ServiceCollection().BuildServiceProvider(), debugGuildId);
-
+using var scope = serviceProvider.CreateScope();
+DiscordClient? discordClient = null;
 try
 {
+    discordClient = serviceProvider.GetRequiredService<DiscordClient>();
     await discordClient.Connect();
 
     await discordClient.Start();
@@ -32,5 +35,8 @@ catch (Exception ex)
 }
 finally
 {
-    await discordClient.Stop();
+    if (discordClient != null)
+    {
+        await discordClient.Stop();
+    }
 }
