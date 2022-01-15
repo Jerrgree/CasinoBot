@@ -17,7 +17,6 @@ namespace CasinoBot.Interaction.Discord.Client
         public DiscordClient(IConfiguration configuration, IServiceProvider serviceProvider)
         {
             var discordSettings = configuration.GetSection("DiscordConfig");
-
             if (!discordSettings.Exists()) throw new ArgumentException("There is no DiscordConfig section of the provided configuration", nameof(configuration));
 
             _ = ulong.TryParse(discordSettings["debugGuildId"], out ulong debugGuildId);
@@ -126,7 +125,7 @@ namespace CasinoBot.Interaction.Discord.Client
             try
             {
 #if DEBUG
-                var result = _interactionService.RegisterCommandsToGuildAsync(_debugGuildId.Value, true);
+                var result = await _interactionService.RegisterCommandsToGuildAsync(_debugGuildId.Value, true);
                 // Global interactions can take up to an hour to update, use register to guild for a specific guild
 #else
             await _interactionService.RegisterCommandsGloballyAsync(true); // If ever splitting debug/vs prod, use RegisterCommandsToGuildAsync to move debug features;
