@@ -59,34 +59,43 @@ namespace CasinoBot.Interaction.Discord.Client
         }
 
         #region Interaction bases
-        private Task OnComponentCommandExecuted(ComponentCommandInfo arg1, IInteractionContext arg2, IResult arg3)
+        private async Task OnComponentCommandExecuted(ComponentCommandInfo arg1, IInteractionContext arg2, IResult arg3)
         {
             if (!arg3.IsSuccess)
             {
                 Console.WriteLine($"Component Command Resulted in error {arg3.Error}: {arg3.ErrorReason}");
-            }
 
-            return Task.CompletedTask;
+                if (!arg2.Interaction.HasResponded)
+                {
+                    await arg2.Interaction.RespondAsync("Your command has resulted in an error");
+                }
+            }
         }
 
-        private Task OnContextCommandCompleted(ContextCommandInfo arg1, IInteractionContext arg2, IResult arg3)
+        private async Task OnContextCommandCompleted(ContextCommandInfo arg1, IInteractionContext arg2, IResult arg3)
         {
             if (!arg3.IsSuccess)
             {
                 Console.WriteLine($"Context Command Resulted in error {arg3.Error}: {arg3.ErrorReason}");
-            }
 
-            return Task.CompletedTask;
+                if (!arg2.Interaction.HasResponded)
+                {
+                    await arg2.Interaction.RespondAsync("Your command has resulted in an error");
+                }
+            }
         }
 
-        private Task OnSlashCommandCompleted(SlashCommandInfo arg1, IInteractionContext arg2, IResult arg3)
+        private async Task OnSlashCommandCompleted(SlashCommandInfo arg1, IInteractionContext arg2, IResult arg3)
         {
             if (!arg3.IsSuccess)
             {
                 Console.WriteLine($"Slash Command Resulted in error {arg3.Error}: {arg3.ErrorReason}");
-            }
 
-            return Task.CompletedTask;
+                if (!arg2.Interaction.HasResponded)
+                {
+                    await arg2.Interaction.RespondAsync("Your command has resulted in an error");
+                }
+            }
         }
 
         private async Task OnInteractionCreated(SocketInteraction arg)
