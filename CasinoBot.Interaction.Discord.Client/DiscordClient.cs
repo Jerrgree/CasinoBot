@@ -29,7 +29,12 @@ namespace CasinoBot.Interaction.Discord.Client
             _interactionService = new InteractionService(_client.Rest);
 
             _client.Ready += OnClientReady;
-            _client.InteractionCreated += HandleInteraction;
+            _client.InteractionCreated += OnInteractionCreated;
+
+            // Process the command execution results 
+            _interactionService.SlashCommandExecuted += OnSlashCommandCompleted;
+            _interactionService.ContextCommandExecuted += OnContextCommandCompleted;
+            _interactionService.ComponentCommandExecuted += OnComponentCommandExecuted;
         }
 
         public async Task Connect()
@@ -53,7 +58,38 @@ namespace CasinoBot.Interaction.Discord.Client
             _client?.Dispose();
         }
 
-        private async Task HandleInteraction(SocketInteraction arg)
+        #region Interaction bases
+        private Task OnComponentCommandExecuted(ComponentCommandInfo arg1, IInteractionContext arg2, IResult arg3)
+        {
+            if (!arg3.IsSuccess)
+            {
+                Console.WriteLine($"Component Command Resulted in error {arg3.Error}: {arg3.ErrorReason}");
+            }
+
+            return Task.CompletedTask;
+        }
+
+        private Task OnContextCommandCompleted(ContextCommandInfo arg1, IInteractionContext arg2, IResult arg3)
+        {
+            if (!arg3.IsSuccess)
+            {
+                Console.WriteLine($"Context Command Resulted in error {arg3.Error}: {arg3.ErrorReason}");
+            }
+
+            return Task.CompletedTask;
+        }
+
+        private Task OnSlashCommandCompleted(SlashCommandInfo arg1, IInteractionContext arg2, IResult arg3)
+        {
+            if (!arg3.IsSuccess)
+            {
+                Console.WriteLine($"Slash Command Resulted in error {arg3.Error}: {arg3.ErrorReason}");
+            }
+
+            return Task.CompletedTask;
+        }
+
+        private async Task OnInteractionCreated(SocketInteraction arg)
         {
             try
             {
@@ -71,6 +107,8 @@ namespace CasinoBot.Interaction.Discord.Client
                     await arg.GetOriginalResponseAsync().ContinueWith(async (msg) => await msg.Result.DeleteAsync());
             }
         }
+
+        #endregion
 
 
         private async Task OnClientReady()
