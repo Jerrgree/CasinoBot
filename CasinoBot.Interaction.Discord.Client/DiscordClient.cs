@@ -115,15 +115,15 @@ namespace CasinoBot.Interaction.Discord.Client
             try
             {
 #if DEBUG
-                var result = await new InteractionService(_client.Rest).RegisterCommandsToGuildAsync(_debugGuildId.Value, true);
+                var result = _interactionService.RegisterCommandsToGuildAsync(_debugGuildId.Value, true);
                 // Global interactions can take up to an hour to update, use register to guild for a specific guild
 #else
-            await _interactionService.RegisterCommandsGloballyAsync(); // If ever splitting debug/vs prod, use RegisterCommandsToGuildAsync to move debug features;
+            await _interactionService.RegisterCommandsGloballyAsync(true); // If ever splitting debug/vs prod, use RegisterCommandsToGuildAsync to move debug features;
 #endif
             }
             catch (Exception ex)
             {
-
+                Console.WriteLine($"Failed to registed commands: {ex}");
             }
         }
 
