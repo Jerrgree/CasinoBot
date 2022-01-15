@@ -10,7 +10,7 @@ namespace CasinoBot.Interaction.Discord.Client.Modules
         {
             var cards = StandardPlayingCard.CreateDeck(1).Shuffle().Draw(numberOfCards);
             var result = $"Draw ${cards.Select(c => c.ToString())}";
-            await RespondAsync();
+            await RespondAsync(result);
         }
     }
 }
