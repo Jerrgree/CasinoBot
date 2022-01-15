@@ -2,11 +2,11 @@
 using CasinoBot.Domain.Models.StandardPlayingCards;
 using System.Text;
 
-namespace CasinoBot.Interaction.Discord.Client.Helpers
+namespace CasinoBot.Interaction.Discord.Client.Extensions
 {
-    public static class Formatting
+    internal static class StandardPlayingCardExtensions
     {
-        public static string FormatStandardPlayingCard(StandardPlayingCard card)
+        internal static string GetDisplayString(this StandardPlayingCard card)
         {
             var sb = new StringBuilder();
 
