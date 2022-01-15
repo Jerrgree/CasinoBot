@@ -1,4 +1,5 @@
 ﻿using CasinoBot.Domain.Models.StandardPlayingCards;
+using CasinoBot.Interaction.Discord.Client.Helpers;
 using Discord;
 using Discord.Interactions;
 
@@ -13,7 +14,7 @@ namespace CasinoBot.Interaction.Discord.Client.Modules
 
             var embed = new EmbedBuilder()
                 .WithTitle("Cards")
-                .WithDescription(string.Join(" ", cards.Select(c => ":eight: of :heart:")))
+                .WithDescription(string.Join(" ", cards.Select(c => Formatting.FormatStandardPlayingCard(c))))
                 .WithColor(Color.DarkRed);
             await RespondAsync(embed: embed.Build());
         }
