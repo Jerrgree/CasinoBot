@@ -130,6 +130,10 @@ namespace CasinoBot.Interaction.Discord.Client
             {
                 Console.WriteLine($"Failed to registed commands: {ex}");
             }
+            finally
+            {
+                Console.WriteLine("Bot is ready");
+            }
         }
 
     }

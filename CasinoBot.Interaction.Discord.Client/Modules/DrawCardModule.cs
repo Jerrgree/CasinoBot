@@ -13,7 +13,8 @@ namespace CasinoBot.Interaction.Discord.Client.Modules
 
             var embed = new EmbedBuilder()
                 .WithTitle("Cards")
-                .WithDescription(string.Join(" ", cards.Select(c => ":eight: of :heart:")));
+                .WithDescription(string.Join(" ", cards.Select(c => ":eight: of :heart:")))
+                .WithColor(Color.DarkRed);
             await RespondAsync(embed: embed.Build());
         }
     }
