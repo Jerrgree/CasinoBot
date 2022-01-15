@@ -56,7 +56,6 @@ namespace CasinoBot.Interaction.Discord.Client
         private async Task HandleInteraction(SocketInteraction arg)
         {
             try
-            
             {
                 // Create an execution context that matches the generic type parameter of your InteractionModuleBase<T> modules
                 var ctx = new SocketInteractionContext(_client, arg);
