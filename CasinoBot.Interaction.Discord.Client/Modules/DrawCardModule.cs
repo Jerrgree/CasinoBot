@@ -1,4 +1,5 @@
 ﻿using CasinoBot.Domain.Models.StandardPlayingCards;
+using CasinoBot.Interaction.Discord.Client.Extensions;
 using CasinoBot.Interaction.Discord.Client.Helpers;
 using Discord;
 using Discord.Interactions;
@@ -19,7 +20,7 @@ namespace CasinoBot.Interaction.Discord.Client.Modules
 
             foreach(var card in cards)
             {
-                embed.AddField("\u200b", Formatting.FormatStandardPlayingCard(card), true);
+                embed.AddFieldWithoutTitle(Formatting.FormatStandardPlayingCard(card), true);
             }
             await RespondAsync(embed: embed.Build());
         }
