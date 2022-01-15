@@ -9,7 +9,7 @@ namespace CasinoBot.Interaction.Discord.Client.Modules
         public async Task Echo([Summary(description: "The number of cards to draw"), MinValue(1)] int numberOfCards = 1)
         {
             var cards = StandardPlayingCard.CreateDeck(1).Shuffle().Draw(numberOfCards);
-            var result = $"Draw ${cards.Select(c => c.ToString())}";
+            var result = $"Draw {string.Join(", ", cards.Select(c => c.Display))}";
             await RespondAsync(result);
         }
     }
