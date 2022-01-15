@@ -35,5 +35,12 @@
         /// <exception cref="IndexOutOfRangeException">Thrown when attempting to access an index outside of the hand's range</exception>
         /// <returns>The removed card with its state</returns>
         new (T Card, U State) RemoveAt(int index);
+
+        /// <summary>
+        /// Randomizes the hand
+        /// </summary>
+        /// <exception cref="InvalidOperationException">Thrown when called on an empty hand</exception>
+        /// <returns>The shuffled hand</returns>
+        new IStatefulHand<T, U> Shuffle();
     }
 }

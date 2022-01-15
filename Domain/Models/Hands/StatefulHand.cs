@@ -44,11 +44,18 @@ namespace CasinoBot.Domain.Models.Hands
         }
 
 
-        public void Shuffle()
+        public IStatefulHand<T, U> Shuffle()
         {
             if (Count == 0) throw new InvalidOperationException("The hand is currently empty");
             _cards.Shuffle();
+            return this;
         }
+
+        IHand<T> IHand<T>.Shuffle()
+        {
+            return Shuffle();
+        }
+
 
         #region IEnumerable
 
