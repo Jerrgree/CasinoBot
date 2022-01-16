@@ -17,7 +17,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CasinoBot.Interaction.Disco
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CasinoBot.Logging", "CasinoBot.Logging", "{99F6D628-3073-4FEB-80E6-B13E7B51013E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CasinoBot.Logging.ConsoleLogger", "CasinoBot.Logging.ConsoleLogger\CasinoBot.Logging.ConsoleLogger.csproj", "{5F9B8667-B6C7-46FC-B76C-AE4AE3AA67B9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CasinoBot.Logging.ConsoleLogger", "CasinoBot.Logging.ConsoleLogger\CasinoBot.Logging.ConsoleLogger.csproj", "{5F9B8667-B6C7-46FC-B76C-AE4AE3AA67B9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CasinoBot.Data", "CasinoBot.Data\CasinoBot.Data.csproj", "{63FE7D68-FE32-40C4-A23A-4BF3395B2ED4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +47,10 @@ Global
 		{5F9B8667-B6C7-46FC-B76C-AE4AE3AA67B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5F9B8667-B6C7-46FC-B76C-AE4AE3AA67B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5F9B8667-B6C7-46FC-B76C-AE4AE3AA67B9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{63FE7D68-FE32-40C4-A23A-4BF3395B2ED4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{63FE7D68-FE32-40C4-A23A-4BF3395B2ED4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{63FE7D68-FE32-40C4-A23A-4BF3395B2ED4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{63FE7D68-FE32-40C4-A23A-4BF3395B2ED4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
