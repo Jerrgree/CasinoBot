@@ -1,4 +1,5 @@
-﻿using Discord;
+﻿using CasinoBot.Domain.Interfaces;
+using Discord;
 using Discord.Interactions;
 using Discord.WebSocket;
 using Microsoft.Extensions.Configuration;
@@ -12,9 +13,10 @@ namespace CasinoBot.Interaction.Discord.Client
         private readonly DiscordSocketClient _client;
         private readonly InteractionService _interactionService;
         private readonly IServiceProvider _serviceProvider;
+        private readonly ILoggingService _loggingService;
         private readonly ulong? _debugGuildId;
 
-        public DiscordClient(IConfiguration configuration, IServiceProvider serviceProvider)
+        public DiscordClient(IConfiguration configuration, IServiceProvider serviceProvider, ILoggingService loggingService)
         {
             var discordSettings = configuration.GetSection("DiscordConfig");
             if (!discordSettings.Exists()) throw new ArgumentException("There is no DiscordConfig section of the provided configuration", nameof(configuration));
@@ -36,6 +38,7 @@ namespace CasinoBot.Interaction.Discord.Client
             _interactionService.SlashCommandExecuted += OnSlashCommandCompleted;
             _interactionService.ContextCommandExecuted += OnContextCommandCompleted;
             _interactionService.ComponentCommandExecuted += OnComponentCommandExecuted;
+            _loggingService = loggingService;
         }
 
         public async Task Connect()

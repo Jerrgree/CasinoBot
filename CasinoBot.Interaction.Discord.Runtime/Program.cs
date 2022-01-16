@@ -1,4 +1,6 @@
-﻿using CasinoBot.Interaction.Discord.Client;
+﻿using CasinoBot.Domain.Interfaces;
+using CasinoBot.Interaction.Discord.Client;
+using CasinoBot.Logging.ConsoleLogger;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -10,6 +12,7 @@ var config = new ConfigurationBuilder()
 var serviceProvider = new ServiceCollection()
     .AddTransient<IConfiguration>(_ => config)
     .AddScoped<DiscordClient>()
+    .AddSingleton<ILoggingService, ConsoleLogger>()
     .BuildServiceProvider();
 
 using var scope = serviceProvider.CreateScope();
