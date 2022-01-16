@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
@@ -15,6 +15,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\CasinoBot.Interaction.Discord.Client\CasinoBot.Interaction.Discord.Client.csproj" />
+    <ProjectReference Include="..\CasinoBot.Logging.ConsoleLogger\CasinoBot.Logging.ConsoleLogger.csproj" />
   </ItemGroup>
 
   <ItemGroup>
