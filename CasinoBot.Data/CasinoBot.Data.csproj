@@ -20,4 +20,8 @@
     <ProjectReference Include="..\CasinoBot.Domain\CasinoBot.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Migrations\" />
+  </ItemGroup>
+
 </Project>
