@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\CasinoBot.Domain\CasinoBot.Domain.csproj" />
     <ProjectReference Include="..\Domain\CasinoBot.Domain.csproj" />
   </ItemGroup>
 
