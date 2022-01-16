@@ -362,4 +362,5 @@ MigrationBackup/
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
 /CasinoBot.Interaction.Discord.Runtime/discordSettings.json
-/CasinoBot.Data/Migrations
+*/connectionStrings.json
+/CasinoBot.Data.Migrations/Migrations

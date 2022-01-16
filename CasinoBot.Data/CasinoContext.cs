@@ -9,14 +9,12 @@ namespace CasinoBot.Data
         public DbSet<UserTable> UserTables { get; set; }
         public DbSet<LogEntry> LogEntries { get; set; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder options)
-            => options.UseSqlServer(@"Server=localhost;Database=CasinoBot;Trusted_Connection=True;");
+        public CasinoContext(DbContextOptions<CasinoContext> dbContextOptions) : base(dbContextOptions) { }
 
         #region Required
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(CasinoContext).Assembly);
-
         }
         #endregion
 
