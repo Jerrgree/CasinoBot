@@ -107,8 +107,8 @@ namespace CasinoBot.Interaction.Discord.Client
             {
                 // Create an execution context that matches the generic type parameter of your InteractionModuleBase<T> modules
                 var ctx = new SocketInteractionContext(_client, arg);
-                var userId = ctx.User.Id;
-                var guildId = ctx.Guild.Id;
+                var userId = ctx.User?.Id;
+                var guildId = ctx.Guild?.Id;
                 var traceId = Guid.NewGuid();
 
                 loggingService.SetLoggingInformation(traceId, userId, guildId);
