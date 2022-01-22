@@ -8,6 +8,11 @@ namespace CasinoBot.Logging.ConsoleLogger
         private ulong? _userId;
         private ulong? _guildId;
 
+        public ConsoleLogger()
+        {
+
+        }
+
         public void SetLoggingInformation(Guid? traceId, ulong? userId, ulong? guildId)
         {
             _traceId = traceId;
