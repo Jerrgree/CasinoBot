@@ -77,7 +77,7 @@ namespace CasinoBot.Interaction.Discord.Client
         {
             if (!arg3.IsSuccess)
             {
-                await _loggingService.LogErrorMessage($"Context Command Resulted in error {arg3.Error}: {arg3.ErrorReason}");
+                await _serviceProvider.GetRequiredService<ILoggingService>().LogErrorMessage($"Context Command Resulted in error {arg3.Error}: {arg3.ErrorReason}");
 
                 if (!arg2.Interaction.HasResponded)
                 {
@@ -90,7 +90,7 @@ namespace CasinoBot.Interaction.Discord.Client
         {
             if (!arg3.IsSuccess)
             {
-                await _loggingService.LogErrorMessage($"Slash Command Resulted in error {arg3.Error}: {arg3.ErrorReason}");
+                await _serviceProvider.GetRequiredService<ILoggingService>().LogErrorMessage($"Slash Command Resulted in error {arg3.Error}: {arg3.ErrorReason}");
 
                 if (!arg2.Interaction.HasResponded)
                 {
