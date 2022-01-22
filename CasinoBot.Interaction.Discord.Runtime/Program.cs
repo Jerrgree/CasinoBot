@@ -12,7 +12,7 @@ var config = new ConfigurationBuilder()
 var serviceProvider = new ServiceCollection()
     .AddTransient<IConfiguration>(_ => config)
     .AddScoped<DiscordClient>()
-    .AddSingleton<ILoggingService, ConsoleLogger>()
+    .AddScoped<ILoggingService, ConsoleLogger>()
     .BuildServiceProvider();
 
 using var scope = serviceProvider.CreateScope();
