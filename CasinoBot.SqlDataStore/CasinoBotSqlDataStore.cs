@@ -147,8 +147,8 @@ namespace CasinoBot.SqlDataStore
         {
             try
             {
-                var playerTable = await _dbContext.
-                    UserTables
+                var playerTable = await _dbContext
+                    .UserTables
                     .FirstAsync(ut => ut.UserId == playerId && ut.TableId == tableId);
                 playerTable.State = JsonConvert.SerializeObject(playerState);
                 await _dbContext.SaveChangesAsync();
