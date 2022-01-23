@@ -12,11 +12,11 @@ using DomainTable = CasinoBot.Domain.Models.Tables.Table;
 
 namespace CasinoBot.SqlDataStore
 {
-    public class CasinoBotSqlDataStore : IGameDataStore
+    public class CasinoBotSqlGameDataStore : IGameDataStore
     {
         private readonly CasinoContext _dbContext;
         private readonly ILoggingService _loggingService;
-        public CasinoBotSqlDataStore(ILoggingService loggingService,
+        public CasinoBotSqlGameDataStore(ILoggingService loggingService,
              CasinoContext dbContext)
         {
             _loggingService = loggingService;
