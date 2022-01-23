@@ -3,38 +3,45 @@
     public interface ILoggingService
     {
         /// <summary>
+        /// Sets logging information for use when logging
+        /// </summary>
+        /// <param name="traceId">The trace ID tying together logs of a particular request</param>
+        /// <param name="userId">The user ID that a request was invoked by</param>
+        /// <param name="guildId">The guild ID that a request was invoked from</param>
+        void SetLoggingInformation(Guid? traceId, ulong? userId, ulong? guildId);
+        /// <summary>
         /// Writes a debug message to the logging output
         /// </summary>
-        /// <param name="logEntry">The log entry to write</param>
+        /// <param name="logMessage">The log message to write</param>
         /// <returns>A task indicating the status of the asynchronous operation</returns>
-        Task LogDebugMessage(ILogEntry logEntry);
+        Task LogDebugMessage(string logMessage);
 
         /// <summary>
         /// Writes a informational message to the logging output
         /// </summary>
-        /// <param name="logEntry">The log entry to write</param>
+        /// <param name="logMessage">The log message to write</param>
         /// <returns>A task indicating the status of the asynchronous operation</returns>
-        Task LogInformationalMessage(ILogEntry logEntry);
+        Task LogInformationalMessage(string logMessage);
 
         /// <summary>
         /// Writes a warning message to the logging output
         /// </summary>
-        /// <param name="logEntry">The log entry to write</param>
+        /// <param name="logMessage">The log message to write</param>
         /// <returns>A task indicating the status of the asynchronous operation</returns>
-        Task LogWarningMessage(ILogEntry logEntry);
+        Task LogWarningMessage(string logMessage);
 
         /// <summary>
         /// Writes a error message to the logging output
         /// </summary>
-        /// <param name="logEntry">The log entry to write</param>
+        /// <param name="logMessage">The log message to write</param>
         /// <returns>A task indicating the status of the asynchronous operation</returns>
-        Task LogErrorMessage(ILogEntry logEntry);
+        Task LogErrorMessage(string logMessage);
 
         /// <summary>
         /// Writes a fatal message to the logging output
         /// </summary>
-        /// <param name="logEntry">The log entry to write</param>
+        /// <param name="logMessage">The log message to write</param>
         /// <returns>A task indicating the status of the asynchronous operation</returns>
-        Task LogFatalMessage(ILogEntry logEntry);
+        Task LogFatalMessage(string logMessage);
     }
 }
