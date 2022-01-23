@@ -77,7 +77,9 @@ namespace CasinoBot.Interaction.Discord.Client
         {
             if (!arg3.IsSuccess)
             {
-                await _serviceProvider.GetRequiredService<ILoggingService>().LogErrorMessage($"Context Command Resulted in error {arg3.Error}: {arg3.ErrorReason}");
+                using var scope = _serviceProvider.CreateScope();
+                var loggingService = scope.ServiceProvider.GetRequiredService<ILoggingService>();
+                await loggingService.LogErrorMessage($"Context Command Resulted in error {arg3.Error}: {arg3.ErrorReason}");
 
                 if (!arg2.Interaction.HasResponded)
                 {
@@ -90,7 +92,9 @@ namespace CasinoBot.Interaction.Discord.Client
         {
             if (!arg3.IsSuccess)
             {
-                await _serviceProvider.GetRequiredService<ILoggingService>().LogErrorMessage($"Slash Command Resulted in error {arg3.Error}: {arg3.ErrorReason}");
+                using var scope = _serviceProvider.CreateScope();
+                var loggingService = scope.ServiceProvider.GetRequiredService<ILoggingService>();
+                await loggingService.LogErrorMessage($"Slash Command Resulted in error {arg3.Error}: {arg3.ErrorReason}");
 
                 if (!arg2.Interaction.HasResponded)
                 {
@@ -101,22 +105,16 @@ namespace CasinoBot.Interaction.Discord.Client
 
         private async Task OnInteractionCreated(SocketInteraction arg)
         {
-            using var scope = _serviceProvider.CreateScope();
-            var loggingService = scope.ServiceProvider.GetRequiredService<ILoggingService>();
             try
             {
                 // Create an execution context that matches the generic type parameter of your InteractionModuleBase<T> modules
                 var ctx = new SocketInteractionContext(_client, arg);
-                var userId = ctx.User?.Id;
-                var guildId = ctx.Guild?.Id;
-                var traceId = Guid.NewGuid();
-
-                loggingService.SetLoggingInformation(traceId, userId, guildId);
-
-                await _interactionService.ExecuteCommandAsync(ctx, scope.ServiceProvider);
+                await _interactionService.ExecuteCommandAsync(ctx, _serviceProvider);
             }
             catch (Exception ex)
             {
+                using var scope = _serviceProvider.CreateScope();
+                var loggingService = scope.ServiceProvider.GetRequiredService<ILoggingService>();
                 await loggingService.LogErrorMessage($"Exception ocurred while executing interaction: {ex}");
 
                 // If a Slash Command execution fails it is most likely that the original interaction acknowledgement will persist. It is a good idea to delete the original
