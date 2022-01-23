@@ -18,27 +18,27 @@ namespace CasinoBot.SqlDataStore
             _dbContext = dbContext;
         }
 
-        public async Task<(bool isSuccessful, string message)> CreateTable(ulong guildId, TableType tableType)
+        public async Task<(bool isSuccessful, string? message)> CreateTable(ulong guildId, TableType tableType)
         {
             throw new NotImplementedException();
         }
 
-        public async Task<(bool isSuccessful, string message)> DeleteTable(long tableId)
+        public async Task<(bool isSuccessful, string? message)> DeleteTable(long tableId)
         {
             throw new NotImplementedException();
         }
 
-        public async Task<(bool isSuccessful, IEnumerable<ITable<T>> tables, string message)> GetTablesByGuild<T>(ulong guildId) where T : class
+        public async Task<(bool isSuccessful, IEnumerable<ITable<T>>? tables, string? message)> GetTablesByGuild<T>(ulong guildId) where T : class
         {
             throw new NotImplementedException();
         }
 
-        public async Task<(bool isSuccessful, string message, IEnumerable<ITable<T>> tables)> GetTablesByPlayer<T>(ulong playerId) where T : class
+        public async Task<(bool isSuccessful, string? message, IEnumerable<ITable<T>> tables)> GetTablesByPlayer<T>(ulong playerId) where T : class
         {
             throw new NotImplementedException();
         }
 
-        public async Task<(bool isSuccessful, string message)> AddPlayerToTable<T>(long tableId, ulong playerId, T playerState) where T : class
+        public async Task<(bool isSuccessful, string? message)> AddPlayerToTable<T>(long tableId, ulong playerId, T playerState) where T : class
         {
             try
             {
@@ -63,7 +63,7 @@ namespace CasinoBot.SqlDataStore
         }
 
 
-        public async Task<(bool isSuccessful, string message)> UpdatePlayer<T>(long tableId, ulong playerId, T playerState) where T : class
+        public async Task<(bool isSuccessful, string? message)> UpdatePlayer<T>(long tableId, ulong playerId, T playerState) where T : class
         {
             try
             {
