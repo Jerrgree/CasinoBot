@@ -162,9 +162,28 @@ namespace CasinoBot.SqlDataStore
             return new Response();
         }
 
-        public async Task<Response<IEnumerable<Player<T>>?>> GetPlayersByTable<T>(ulong tableId) where T : class
+        public async Task<Response<IEnumerable<Player<T>>?>> GetPlayersByTable<T>(long tableId) where T : class
         {
-            throw new NotImplementedException();
+            try
+            {
+                var userTables = await _dbContext
+                    .UserTables
+                    .Where(ut => ut.TableId == tableId)
+                    .ToListAsync();
+
+                var players = userTables.Select(ut => new Player<T>()
+                {
+                    PlayerId = ut.UserId,
+                    PlayerState = JsonConvert.DeserializeObject<T>(ut.State)
+                }).ToList();
+
+                return new Response<IEnumerable<Player<T>>?>(players);
+            }
+            catch (Exception ex)
+            {
+                var message = HandleException(ex); // Maybe return an enum instead?
+                return new Response<IEnumerable<Player<T>>?>(false, message, null);
+            }
         }
 
         private string HandleException(Exception ex, [CallerMemberName] string callerName = "")

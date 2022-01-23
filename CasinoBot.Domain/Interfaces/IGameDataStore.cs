@@ -56,6 +56,6 @@ namespace CasinoBot.Domain.Interfaces
         /// <typeparam name="T">The type of state that the players are using</typeparam>
         /// <param name="tableId">The id of the table</param>
         /// <returns></returns>
-        Task<Response<IEnumerable<Player<T>>?>> GetPlayersByTable<T>(ulong tableId) where T : class;
+        Task<Response<IEnumerable<Player<T>>?>> GetPlayersByTable<T>(long tableId) where T : class;
     }
 }
