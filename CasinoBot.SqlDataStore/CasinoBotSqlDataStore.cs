@@ -5,7 +5,10 @@ using CasinoBot.Domain.Interfaces;
 using CasinoBot.Domain.Models;
 using CasinoBot.Domain.Models.Players;
 using Newtonsoft.Json;
+using System.Data.Entity;
 using System.Runtime.CompilerServices;
+
+using DomainTable = CasinoBot.Domain.Models.Tables.Table;
 
 namespace CasinoBot.SqlDataStore
 {
@@ -43,15 +46,32 @@ namespace CasinoBot.SqlDataStore
 
         public async Task<Response> DeleteTable(long tableId)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var tableToRemove = await _dbContext.Tables
+                    .Include(t => t.UserTables)
+                    .SingleAsync(t => t.TableId == tableId);
+
+                _dbContext.UserTables.RemoveRange(tableToRemove.UserTables);
+                _dbContext.Tables.Remove(tableToRemove);
+
+                await _dbContext.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                var message = HandleException(ex);
+                return new Response(false, message);
+            }
+
+            return new Response();
         }
 
-        public async Task<Response<IEnumerable<Table>?>> GetTablesByGuild(ulong guildId)
+        public async Task<Response<IEnumerable<DomainTable>?>> GetTablesByGuild(ulong guildId)
         {
             throw new NotImplementedException();
         }
 
-        public async Task<Response<IEnumerable<Table>?>> GetTablesByPlayer(ulong playerId)
+        public async Task<Response<IEnumerable<DomainTable>?>> GetTablesByPlayer(ulong playerId)
         {
             throw new NotImplementedException();
         }
@@ -79,7 +99,6 @@ namespace CasinoBot.SqlDataStore
 
             return new Response();
         }
-
 
         public async Task<Response> UpdatePlayer<T>(long tableId, ulong playerId, T playerState) where T : class
         {
