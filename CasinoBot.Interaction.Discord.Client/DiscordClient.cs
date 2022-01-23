@@ -1,9 +1,9 @@
 ﻿using CasinoBot.Domain.Interfaces;
-using CasinoBot.Interaction.Discord.Client.Models;
 using Discord;
 using Discord.Interactions;
 using Discord.WebSocket;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 
 namespace CasinoBot.Interaction.Discord.Client
@@ -14,10 +14,9 @@ namespace CasinoBot.Interaction.Discord.Client
         private readonly DiscordSocketClient _client;
         private readonly InteractionService _interactionService;
         private readonly IServiceProvider _serviceProvider;
-        private readonly ILoggingService _loggingService;
-        private readonly ulong? _debugGuildId;
+         private readonly ulong? _debugGuildId;
 
-        public DiscordClient(IConfiguration configuration, IServiceProvider serviceProvider, ILoggingService loggingService)
+        public DiscordClient(IConfiguration configuration, IServiceProvider serviceProvider)
         {
             var discordSettings = configuration.GetSection("DiscordConfig");
             if (!discordSettings.Exists()) throw new ArgumentException("There is no DiscordConfig section of the provided configuration", nameof(configuration));
@@ -39,7 +38,6 @@ namespace CasinoBot.Interaction.Discord.Client
             _interactionService.SlashCommandExecuted += OnSlashCommandCompleted;
             _interactionService.ContextCommandExecuted += OnContextCommandCompleted;
             _interactionService.ComponentCommandExecuted += OnComponentCommandExecuted;
-            _loggingService = loggingService;
         }
 
         public async Task Connect()
@@ -68,12 +66,9 @@ namespace CasinoBot.Interaction.Discord.Client
         {
             if (!arg3.IsSuccess)
             {
-                var logEntry = new LogEntry($"Component Command Resulted in error {arg3.Error}: {arg3.ErrorReason}", arg2.User.Id);
-                await _loggingService.LogErrorMessage(logEntry);
-
                 if (!arg2.Interaction.HasResponded)
                 {
-                    await arg2.Interaction.RespondAsync("Your command has resulted in an error");
+                    await arg2.Interaction.RespondAsync($"Component Command Resulted in error {arg3.Error}: {arg3.ErrorReason}");
                 }
             }
         }
@@ -82,8 +77,9 @@ namespace CasinoBot.Interaction.Discord.Client
         {
             if (!arg3.IsSuccess)
             {
-                var logEntry = new LogEntry($"Context Command Resulted in error {arg3.Error}: {arg3.ErrorReason}", arg2.User.Id);
-                await _loggingService.LogErrorMessage(logEntry);
+                using var scope = _serviceProvider.CreateScope();
+                var loggingService = scope.ServiceProvider.GetRequiredService<ILoggingService>();
+                await loggingService.LogErrorMessage($"Context Command Resulted in error {arg3.Error}: {arg3.ErrorReason}");
 
                 if (!arg2.Interaction.HasResponded)
                 {
@@ -96,8 +92,9 @@ namespace CasinoBot.Interaction.Discord.Client
         {
             if (!arg3.IsSuccess)
             {
-                var logEntry = new LogEntry($"Slash Command Resulted in error {arg3.Error}: {arg3.ErrorReason}", arg2.User.Id);
-                await _loggingService.LogErrorMessage(logEntry);
+                using var scope = _serviceProvider.CreateScope();
+                var loggingService = scope.ServiceProvider.GetRequiredService<ILoggingService>();
+                await loggingService.LogErrorMessage($"Slash Command Resulted in error {arg3.Error}: {arg3.ErrorReason}");
 
                 if (!arg2.Interaction.HasResponded)
                 {
@@ -116,7 +113,9 @@ namespace CasinoBot.Interaction.Discord.Client
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex);
+                using var scope = _serviceProvider.CreateScope();
+                var loggingService = scope.ServiceProvider.GetRequiredService<ILoggingService>();
+                await loggingService.LogErrorMessage($"Exception ocurred while executing interaction: {ex}");
 
                 // If a Slash Command execution fails it is most likely that the original interaction acknowledgement will persist. It is a good idea to delete the original
                 // response, or at least let the user know that something went wrong during the command execution.
@@ -129,6 +128,8 @@ namespace CasinoBot.Interaction.Discord.Client
 
         private async Task OnClientReady()
         {
+            using var scope = _serviceProvider.CreateScope();
+            var loggingService = scope.ServiceProvider.GetRequiredService<ILoggingService>();
             try
             {
 #if DEBUG
@@ -140,13 +141,11 @@ namespace CasinoBot.Interaction.Discord.Client
             }
             catch (Exception ex)
             {
-                var logEntry = new LogEntry($"Failed to registed commands: {ex}");
-                await _loggingService.LogFatalMessage(logEntry);
+                await loggingService.LogFatalMessage($"Failed to registed commands: {ex}");
             }
             finally
             {
-                var logEntry = new LogEntry($"Bot is ready");
-                await _loggingService.LogInformationalMessage(logEntry);
+                await loggingService.LogInformationalMessage($"Bot is ready");
                 Console.WriteLine("Bot is ready"); // Go ahead and keep this going to the console despite the logging implementation for dev purposes
             }
         }

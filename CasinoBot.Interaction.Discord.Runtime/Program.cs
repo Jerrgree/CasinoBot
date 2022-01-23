@@ -11,7 +11,7 @@ var config = new ConfigurationBuilder()
 
 var serviceProvider = new ServiceCollection()
     .AddTransient<IConfiguration>(_ => config)
-    .AddScoped<DiscordClient>()
+    .AddSingleton<DiscordClient>()
     .AddScoped<ILoggingService, ConsoleLogger>()
     .BuildServiceProvider();
 
@@ -19,7 +19,7 @@ using var scope = serviceProvider.CreateScope();
 DiscordClient? discordClient = null;
 try
 {
-    discordClient = serviceProvider.GetRequiredService<DiscordClient>();
+    discordClient = scope.ServiceProvider.GetRequiredService<DiscordClient>();
     await discordClient.Connect();
 
     await discordClient.Start();
