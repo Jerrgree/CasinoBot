@@ -10,8 +10,4 @@
     <ProjectReference Include="..\CasinoBot.Common\CasinoBot.Common.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Models\DataStore\" />
-  </ItemGroup>
-
 </Project>

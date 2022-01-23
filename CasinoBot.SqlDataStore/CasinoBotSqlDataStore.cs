@@ -2,6 +2,8 @@
 using CasinoBot.Data.Entities;
 using CasinoBot.Domain.Enums;
 using CasinoBot.Domain.Interfaces;
+using CasinoBot.Domain.Models;
+using CasinoBot.Domain.Models.Players;
 using Newtonsoft.Json;
 using System.Runtime.CompilerServices;
 
@@ -18,7 +20,7 @@ namespace CasinoBot.SqlDataStore
             _dbContext = dbContext;
         }
 
-        public async Task<(bool isSuccessful, string? message)> CreateTable(ulong guildId, TableType tableType)
+        public async Task<Response> CreateTable(ulong guildId, TableType tableType)
         {
             try
             {
@@ -33,28 +35,28 @@ namespace CasinoBot.SqlDataStore
             catch (Exception ex)
             {
                 var message = HandleException(ex); // Maybe return an enum instead?
-                return (false, message);
+                return new Response(false, message);
             }
 
-            return (true, null);
+            return new Response();
         }
 
-        public async Task<(bool isSuccessful, string? message)> DeleteTable(long tableId)
+        public async Task<Response> DeleteTable(long tableId)
         {
             throw new NotImplementedException();
         }
 
-        public async Task<(bool isSuccessful, IEnumerable<ITable<T>>? tables, string? message)> GetTablesByGuild<T>(ulong guildId) where T : class
+        public async Task<Response<IEnumerable<Table>?>> GetTablesByGuild(ulong guildId)
         {
             throw new NotImplementedException();
         }
 
-        public async Task<(bool isSuccessful, string? message, IEnumerable<ITable<T>> tables)> GetTablesByPlayer<T>(ulong playerId) where T : class
+        public async Task<Response<IEnumerable<Table>?>> GetTablesByPlayer(ulong playerId)
         {
             throw new NotImplementedException();
         }
 
-        public async Task<(bool isSuccessful, string? message)> AddPlayerToTable<T>(long tableId, ulong playerId, T playerState) where T : class
+        public async Task<Response> AddPlayerToTable<T>(long tableId, ulong playerId, T playerState) where T : class
         {
             try
             {
@@ -72,26 +74,33 @@ namespace CasinoBot.SqlDataStore
             catch (Exception ex)
             {
                 var message = HandleException(ex); // Maybe return an enum instead?
-                return (false, message);
+                return new Response(false, message);
             }
 
-            return (true, null);
+            return new Response();
         }
 
 
-        public async Task<(bool isSuccessful, string? message)> UpdatePlayer<T>(long tableId, ulong playerId, T playerState) where T : class
+        public async Task<Response> UpdatePlayer<T>(long tableId, ulong playerId, T playerState) where T : class
         {
             try
             {
                 var playerTable = _dbContext.UserTables.First(ut => ut.UserId == playerId && ut.TableId == tableId);
+                playerTable.State = JsonConvert.SerializeObject(playerState);
+                await _dbContext.SaveChangesAsync();
             }
             catch (Exception ex)
             {
                 var message = HandleException(ex); // Maybe return an enum instead?
-                return (false, message);
+                return new Response(false, message);
             }
 
-            return (true, null);
+            return new Response();
+        }
+
+        public async Task<Response<IEnumerable<Player<T>>?>> GetPlayersByTable<T>(ulong tableId) where T : class
+        {
+            throw new NotImplementedException();
         }
 
         private string HandleException(Exception ex, [CallerMemberName] string callerName = "")
