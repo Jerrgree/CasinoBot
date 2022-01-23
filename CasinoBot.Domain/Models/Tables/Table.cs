@@ -7,5 +7,7 @@ namespace CasinoBot.Domain.Models.Tables
         public long TableId { get; set; }
 
         public TableType TableType { get; set; }
+
+        public IEnumerable<ulong> PlayerIds { get; set; }
     }
 }
