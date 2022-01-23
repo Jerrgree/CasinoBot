@@ -48,7 +48,8 @@ namespace CasinoBot.SqlDataStore
         {
             try
             {
-                var tableToRemove = await _dbContext.Tables
+                var tableToRemove = await _dbContext
+                    .Tables
                     .Include(t => t.UserTables)
                     .SingleAsync(t => t.TableId == tableId);
 
@@ -68,12 +69,54 @@ namespace CasinoBot.SqlDataStore
 
         public async Task<Response<IEnumerable<DomainTable>?>> GetTablesByGuild(ulong guildId)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var tables = await _dbContext
+                        .Tables
+                        .Include(t => t.UserTables)
+                        .Where(t => t.GuildId == guildId)
+                        .ToListAsync();
+
+                var domainTables = tables.Select(t => new DomainTable()
+                {
+                    TableId = t.TableId,
+                    TableType = t.TableType,
+                    PlayerIds = t.UserTables.Select(ut => ut.UserId).ToList()
+                }).ToList();
+
+                return new Response<IEnumerable<DomainTable>?>(domainTables);
+            }
+            catch (Exception ex)
+            {
+                var message = HandleException(ex);
+                return new Response<IEnumerable<DomainTable>?>(false, message, null);
+            }
         }
 
         public async Task<Response<IEnumerable<DomainTable>?>> GetTablesByPlayer(ulong playerId)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var tables = await _dbContext
+                        .Tables
+                        .Include(t => t.UserTables)
+                        .Where(t => t.UserTables.Any(ut => ut.UserId == playerId))
+                        .ToListAsync();
+
+                var domainTables = tables.Select(t => new DomainTable()
+                {
+                    TableId = t.TableId,
+                    TableType = t.TableType,
+                    PlayerIds = t.UserTables.Select(ut => ut.UserId).ToList()
+                }).ToList();
+
+                return new Response<IEnumerable<DomainTable>?>(domainTables);
+            }
+            catch (Exception ex)
+            {
+                var message = HandleException(ex);
+                return new Response<IEnumerable<DomainTable>?>(false, message, null);
+            }
         }
 
         public async Task<Response> AddPlayerToTable<T>(long tableId, ulong playerId, T playerState) where T : class
@@ -104,7 +147,9 @@ namespace CasinoBot.SqlDataStore
         {
             try
             {
-                var playerTable = _dbContext.UserTables.First(ut => ut.UserId == playerId && ut.TableId == tableId);
+                var playerTable = await _dbContext.
+                    UserTables
+                    .FirstAsync(ut => ut.UserId == playerId && ut.TableId == tableId);
                 playerTable.State = JsonConvert.SerializeObject(playerState);
                 await _dbContext.SaveChangesAsync();
             }
