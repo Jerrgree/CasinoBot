@@ -20,7 +20,23 @@ namespace CasinoBot.SqlDataStore
 
         public async Task<(bool isSuccessful, string? message)> CreateTable(ulong guildId, TableType tableType)
         {
-            throw new NotImplementedException();
+            try
+            {
+                _dbContext.Tables.Add(new Table()
+                {
+                    TableType = tableType,
+                    GuildId = guildId
+                });
+
+                await _dbContext.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                var message = HandleException(ex); // Maybe return an enum instead?
+                return (false, message);
+            }
+
+            return (true, null);
         }
 
         public async Task<(bool isSuccessful, string? message)> DeleteTable(long tableId)
