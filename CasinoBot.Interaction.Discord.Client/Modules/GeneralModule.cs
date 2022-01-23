@@ -6,7 +6,6 @@ using Discord.Interactions;
 
 namespace CasinoBot.Interaction.Discord.Client.Modules
 {
-    [Group("general", "General messing around with cards")]
     public class GeneralModule : InteractionModuleBase
     {
         [SlashCommand("draw", "Draw card(s)")]
