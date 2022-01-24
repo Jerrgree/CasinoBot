@@ -1,13 +1,13 @@
 ﻿using CasinoBot.Domain.Enums;
 
-namespace CasinoBot.Data.Entities
+namespace CasinoBot.Domain.Models.Tables
 {
     public class Table
     {
         public long TableId { get; set; }
-        public ulong GuildId { get; set; }
+
         public TableType TableType { get; set; }
 
-        public List<UserTable> UserTables { get; set; }
+        public IEnumerable<ulong> PlayerIds { get; set; }
     }
 }
