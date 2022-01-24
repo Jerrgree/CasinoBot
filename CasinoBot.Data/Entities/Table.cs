@@ -8,6 +8,6 @@ namespace CasinoBot.Data.Entities
         public ulong GuildId { get; set; }
         public TableType TableType { get; set; }
 
-        public List<UserTable> UserTables = new();
+        public List<UserTable> UserTables { get; set; }
     }
 }
