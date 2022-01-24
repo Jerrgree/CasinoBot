@@ -40,7 +40,7 @@ namespace CasinoBot.SqlDataStore
                 Console.WriteLine($"Failed to insert new log entry: of {logLevel} - {logMessage}\n" +
                     $"Exception = {ex}");
 
-                return new Response(false, "Failed to insert log entry");
+                return new Response(false, ResponseCode.OtherError);
             }
         }
     }

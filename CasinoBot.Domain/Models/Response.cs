@@ -1,21 +1,23 @@
-﻿namespace CasinoBot.Domain.Models
+﻿using CasinoBot.Domain.Enums;
+
+namespace CasinoBot.Domain.Models
 {
     public class Response
     {
         public bool IsSuccessful { get; set; }
 
-        public string? Message { get; set; }
+        public ResponseCode ResponseCode { get; set; }
 
         public Response()
         {
             IsSuccessful = true;
-            Message = null;
+            ResponseCode = ResponseCode.Success;
         }
 
-        public Response(bool isSuccessful, string? message)
+        public Response(bool isSuccessful, ResponseCode responseCode)
         {
             IsSuccessful = isSuccessful;
-            Message = message;
+            ResponseCode = responseCode;
         }
     }
 }

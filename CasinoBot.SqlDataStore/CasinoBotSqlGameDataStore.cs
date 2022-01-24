@@ -4,10 +4,9 @@ using CasinoBot.Domain.Enums;
 using CasinoBot.Domain.Interfaces;
 using CasinoBot.Domain.Models;
 using CasinoBot.Domain.Models.Players;
+using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
-using System.Data.Entity;
 using System.Runtime.CompilerServices;
-
 using DomainTable = CasinoBot.Domain.Models.Tables.Table;
 
 namespace CasinoBot.SqlDataStore
@@ -186,10 +185,19 @@ namespace CasinoBot.SqlDataStore
             }
         }
 
-        private string HandleException(Exception ex, [CallerMemberName] string callerName = "")
+        private ResponseCode HandleException(Exception ex, [CallerMemberName] string callerName = "")
         {
             _loggingService.LogErrorMessage($"Exception encountered in {callerName}. Ex = {ex}");
-            return "TODO";
+
+            if (ex is InvalidOperationException)
+            {
+                return ex.Message switch
+                {
+                    "Sequence contains no elements." => ResponseCode.DoesNotExist,
+                    _ => ResponseCode.OtherError
+                };
+            }
+            return ResponseCode.OtherError;
         }
     }
 }

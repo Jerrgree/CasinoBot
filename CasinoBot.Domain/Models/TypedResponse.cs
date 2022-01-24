@@ -1,4 +1,6 @@
-﻿namespace CasinoBot.Domain.Models
+﻿using CasinoBot.Domain.Enums;
+
+namespace CasinoBot.Domain.Models
 {
     public class Response<T> : Response
     {
@@ -9,7 +11,7 @@
             Value = value;
         }
 
-        public Response(bool isSuccessful, string? message, T value) : base(isSuccessful, message)
+        public Response(bool isSuccessful, ResponseCode responseCode, T value) : base(isSuccessful, responseCode)
         {
             Value = value;
         }
