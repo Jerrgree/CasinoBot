@@ -6,6 +6,8 @@ using CasinoBot.Domain.Models;
 using CasinoBot.Domain.Models.Players;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
+using System.Data;
+using System.Data.SqlClient;
 using System.Runtime.CompilerServices;
 using DomainTable = CasinoBot.Domain.Models.Tables.Table;
 
@@ -36,8 +38,8 @@ namespace CasinoBot.SqlDataStore
             }
             catch (Exception ex)
             {
-                var message = HandleException(ex); // Maybe return an enum instead?
-                return new Response(false, message);
+                var errorCode = HandleException(ex); // Maybe return an enum instead?
+                return new Response(false, errorCode);
             }
 
             return new Response();
@@ -59,8 +61,8 @@ namespace CasinoBot.SqlDataStore
             }
             catch (Exception ex)
             {
-                var message = HandleException(ex);
-                return new Response(false, message);
+                var errorCode = HandleException(ex);
+                return new Response(false, errorCode);
             }
 
             return new Response();
@@ -87,8 +89,8 @@ namespace CasinoBot.SqlDataStore
             }
             catch (Exception ex)
             {
-                var message = HandleException(ex);
-                return new Response<IEnumerable<DomainTable>?>(false, message, null);
+                var errorCode = HandleException(ex);
+                return new Response<IEnumerable<DomainTable>?>(false, errorCode, null);
             }
         }
 
@@ -113,8 +115,8 @@ namespace CasinoBot.SqlDataStore
             }
             catch (Exception ex)
             {
-                var message = HandleException(ex);
-                return new Response<IEnumerable<DomainTable>?>(false, message, null);
+                var errorCode = HandleException(ex);
+                return new Response<IEnumerable<DomainTable>?>(false, errorCode, null);
             }
         }
 
@@ -135,8 +137,8 @@ namespace CasinoBot.SqlDataStore
             }
             catch (Exception ex)
             {
-                var message = HandleException(ex); // Maybe return an enum instead?
-                return new Response(false, message);
+                var errorCode = HandleException(ex); // Maybe return an enum instead?
+                return new Response(false, errorCode);
             }
 
             return new Response();
@@ -154,8 +156,8 @@ namespace CasinoBot.SqlDataStore
             }
             catch (Exception ex)
             {
-                var message = HandleException(ex); // Maybe return an enum instead?
-                return new Response(false, message);
+                var errorCode = HandleException(ex); // Maybe return an enum instead?
+                return new Response(false, errorCode);
             }
 
             return new Response();
@@ -180,8 +182,8 @@ namespace CasinoBot.SqlDataStore
             }
             catch (Exception ex)
             {
-                var message = HandleException(ex); // Maybe return an enum instead?
-                return new Response<IEnumerable<Player<T>>?>(false, message, null);
+                var errorCode = HandleException(ex); // Maybe return an enum instead?
+                return new Response<IEnumerable<Player<T>>?>(false, errorCode, null);
             }
         }
 
@@ -194,6 +196,14 @@ namespace CasinoBot.SqlDataStore
                 return ex.Message switch
                 {
                     "Sequence contains no elements." => ResponseCode.DoesNotExist,
+                    _ => ResponseCode.OtherError
+                };
+            }
+            else if (ex is DataException && ex.InnerException is SqlException sqlException)
+            {
+                return sqlException.Number switch
+                {
+                    2627 => ResponseCode.AlreadyExists,
                     _ => ResponseCode.OtherError
                 };
             }
