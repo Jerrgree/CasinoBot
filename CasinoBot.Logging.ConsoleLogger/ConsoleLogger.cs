@@ -4,32 +4,43 @@ namespace CasinoBot.Logging.ConsoleLogger
 {
     public class ConsoleLogger : ILoggingService
     {
-        public Task LogDebugMessage(ILogEntry logEntry)
+        private Guid? _traceId;
+        private ulong? _userId;
+        private ulong? _guildId;
+
+        public void SetLoggingInformation(Guid? traceId, ulong? userId, ulong? guildId)
         {
-            Console.WriteLine($"Debug:\tUser: {logEntry.UserId}\tTrace: {logEntry.TraceId}\tTime: {DateTime.Now.ToLongDateString()}\n{logEntry.Message}");
+            _traceId = traceId;
+            _userId = userId;
+            _guildId = guildId;
+        }
+
+        public Task LogDebugMessage(string logMessage)
+        {
+            Console.WriteLine($"Debug:\tUser: {_userId}\tGuild: {_guildId}\tTrace: {_traceId}\tTime: {DateTime.Now.ToLongDateString()}\n{logMessage}");
             return Task.CompletedTask;
         }
-        public Task LogErrorMessage(ILogEntry logEntry)
+        public Task LogErrorMessage(string logMessage)
         {
-            Console.WriteLine($"Error:\tUser: {logEntry.UserId}\tTrace: {logEntry.TraceId}\tTime: {DateTime.Now.ToLongDateString()}\n{logEntry.Message}");
+            Console.WriteLine($"Error:\tUser: {_userId}\tGuild: {_guildId}\tTrace: {_traceId}\tTime: {DateTime.Now.ToLongDateString()}\n{logMessage}");
             return Task.CompletedTask;
         }
 
-        public Task LogFatalMessage(ILogEntry logEntry)
+        public Task LogFatalMessage(string logMessage)
         {
-            Console.WriteLine($"Fatal:\tUser: {logEntry.UserId}\tTrace: {logEntry.TraceId}\tTime: {DateTime.Now.ToLongDateString()}\n{logEntry.Message}");
+            Console.WriteLine($"Fatal:\tUser: {_userId}\tGuild: {_guildId}\tTrace: {_traceId}\tTime: {DateTime.Now.ToLongDateString()}\n{logMessage}");
             return Task.CompletedTask;
         }
 
-        public Task LogInformationalMessage(ILogEntry logEntry)
+        public Task LogInformationalMessage(string logMessage)
         {
-            Console.WriteLine($"Information:\tUser: {logEntry.UserId}\tTrace: {logEntry.TraceId}\tTime: {DateTime.Now.ToLongDateString()}\n{logEntry.Message}");
+            Console.WriteLine($"Information:\tUser: {_userId}\tGuild: {_guildId}\tTrace: {_traceId}\tTime: {DateTime.Now.ToLongDateString()}\n{logMessage}");
             return Task.CompletedTask;
         }
 
-        public Task LogWarningMessage(ILogEntry logEntry)
+        public Task LogWarningMessage(string logMessage)
         {
-            Console.WriteLine($"Warning:\tUser: {logEntry.UserId}\tTrace: {logEntry.TraceId}\tTime: {DateTime.Now.ToLongDateString()}\n{logEntry.Message}");
+            Console.WriteLine($"Warning:\tUser: {_userId}\tGuild: {_guildId}\tTrace: {_traceId}\tTime: {DateTime.Now.ToLongDateString()}\n{logMessage}");
             return Task.CompletedTask;
         }
     }
