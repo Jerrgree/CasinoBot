@@ -16,6 +16,7 @@
   <ItemGroup>
     <ProjectReference Include="..\CasinoBot.Interaction.Discord.Client\CasinoBot.Interaction.Discord.Client.csproj" />
     <ProjectReference Include="..\CasinoBot.Logging.SqlLoggingService\CasinoBot.Logging.SqlLoggingService.csproj" />
+    <ProjectReference Include="..\CasinoBot.SqlDataStore\CasinoBot.SqlDataStore.csproj" />
   </ItemGroup>
 
   <ItemGroup>

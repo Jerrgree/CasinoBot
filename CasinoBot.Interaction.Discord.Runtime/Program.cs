@@ -2,6 +2,7 @@
 using CasinoBot.Domain.Interfaces;
 using CasinoBot.Interaction.Discord.Client;
 using CasinoBot.Logging.SqlLoggingService;
+using CasinoBot.SqlDataStore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -17,6 +18,7 @@ var serviceProvider = new ServiceCollection()
     .AddSingleton<DiscordClient>()
     .AddDbContext<CasinoContext>(options => options.UseSqlServer(config.GetConnectionString("database")))
     .AddScoped<ILoggingService, SqlLoggingService>()
+    .AddScoped<IGameDataStore, CasinoBotSqlGameDataStore>()
     .BuildServiceProvider();
 
 using var scope = serviceProvider.CreateScope();
