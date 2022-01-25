@@ -39,7 +39,7 @@ namespace CasinoBot.Interaction.Discord.Client.Modules
             var tables = getTablesResponse.Value;
             if (tables is null || !tables.Any())
             {
-                embed.WithDescription("There are no tables in this server yet,");
+                embed.WithDescription("There are no tables in this server yet");
             }
             else
             {
