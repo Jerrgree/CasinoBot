@@ -1,18 +1,22 @@
-﻿using CasinoBot.Domain.Interfaces;
+﻿using CasinoBot.Data;
+using CasinoBot.Domain.Interfaces;
 using CasinoBot.Interaction.Discord.Client;
-using CasinoBot.Logging.ConsoleLogger;
+using CasinoBot.Logging.SqlLoggingService;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 var config = new ConfigurationBuilder()
                 .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
+                .AddJsonFile("connectionStrings.json")
                 .AddJsonFile("discordSettings.json")
                 .Build();
 
 var serviceProvider = new ServiceCollection()
     .AddTransient<IConfiguration>(_ => config)
     .AddSingleton<DiscordClient>()
-    .AddScoped<ILoggingService, ConsoleLogger>()
+    .AddDbContext<CasinoContext>(options => options.UseSqlServer(config.GetConnectionString("database")))
+    .AddScoped<ILoggingService, SqlLoggingService>()
     .BuildServiceProvider();
 
 using var scope = serviceProvider.CreateScope();
