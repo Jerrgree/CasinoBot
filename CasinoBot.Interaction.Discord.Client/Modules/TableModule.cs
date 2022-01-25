@@ -47,7 +47,17 @@ namespace CasinoBot.Interaction.Discord.Client.Modules
                 // Also TODO: learn how context buttons work
             }
 
-            await FollowupAsync(embed: embed.Build());
+            var components = new ComponentBuilder()
+                .WithButton("test", "testId:test");
+
+            await FollowupAsync(components: components.Build(), embed: embed.Build());
         }
+
+        [ComponentInteraction("testId:*")]
+        public async Task NextTable()
+        {
+            await RespondAsync("Button has been clicked");
+        }
+
     }
 }
