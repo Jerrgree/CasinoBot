@@ -1,6 +1,7 @@
 ﻿using CasinoBot.Domain.Interfaces;
 using Discord;
 using Discord.Interactions;
+using Discord.WebSocket;
 using System.Linq;
 
 namespace CasinoBot.Interaction.Discord.Client.Modules
@@ -34,7 +35,7 @@ namespace CasinoBot.Interaction.Discord.Client.Modules
             }
 
             var embed = new EmbedBuilder()
-                .WithTitle("Tables");
+                .WithTitle("Tables 1");
 
             var tables = getTablesResponse.Value;
             if (tables is null || !tables.Any())
@@ -56,7 +57,21 @@ namespace CasinoBot.Interaction.Discord.Client.Modules
         [ComponentInteraction("testId:*")]
         public async Task NextTable()
         {
-            await RespondAsync("Button has been clicked");
+            if (Context.Interaction is SocketMessageComponent socketMessage)
+            {
+                var message = socketMessage.Message;
+                var x = int.Parse(message.Embeds.First().Title.Split(' ').Last()) + 1;
+
+                var embed = new EmbedBuilder()
+                    .WithTitle($"Tables {x}");
+
+                await message.ModifyAsync(m => m.Embed = embed.Build());
+                await RespondAsync();
+            }
+            else
+            {
+                await _loggingService.LogErrorMessage($"Unkown interaction type {Context.Interaction.GetType().Name} encountered in {nameof(NextTable)}");
+            }
         }
 
     }
