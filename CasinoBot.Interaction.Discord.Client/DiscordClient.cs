@@ -66,9 +66,13 @@ namespace CasinoBot.Interaction.Discord.Client
         {
             if (!arg3.IsSuccess)
             {
+                using var scope = _serviceProvider.CreateScope();
+                var loggingService = scope.ServiceProvider.GetRequiredService<ILoggingService>();
+                await loggingService.LogErrorMessage($"Component Command Resulted in error {arg3.Error}: {arg3.ErrorReason}");
+
                 if (!arg2.Interaction.HasResponded)
                 {
-                    await arg2.Interaction.RespondAsync($"Component Command Resulted in error {arg3.Error}: {arg3.ErrorReason}");
+                    await arg2.Interaction.RespondAsync("Your command has resulted in an error");
                 }
             }
         }
