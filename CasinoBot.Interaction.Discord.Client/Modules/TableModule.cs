@@ -86,7 +86,7 @@ namespace CasinoBot.Interaction.Discord.Client.Modules
                 }
 
                 var tables = getTablesResponse.Value!;
-                var count = tables.Count();
+                var count = tables.Count;
                 var nextIndex = (indexOfCurrentTable + 1) % count;
 
                 (var embed, var components) = GetTablesContent(nextIndex, tables);
@@ -122,7 +122,7 @@ namespace CasinoBot.Interaction.Discord.Client.Modules
                 }
 
                 var tables = getTablesResponse.Value!;
-                var count = tables.Count();
+                var count = tables.Count;
                 var prevIndex = indexOfCurrentTable == 0 ? count - 1 : indexOfCurrentTable - 1;
 
                 (var embed, var components) = GetTablesContent(prevIndex, tables);
