@@ -91,7 +91,11 @@ namespace CasinoBot.Interaction.Discord.Client.Modules
 
                 (var embed, var components) = GetTablesContent(nextIndex, tables);
 
-                await message.ModifyAsync(m => m.Embed = embed.Build());
+                await message.ModifyAsync(m =>
+                {
+                    m.Embed = embed.Build();
+                    m.Components = components.Build();
+                });
                 await FollowupAsync();
             }
             else
@@ -119,11 +123,15 @@ namespace CasinoBot.Interaction.Discord.Client.Modules
 
                 var tables = getTablesResponse.Value!;
                 var count = tables.Count();
-                var prevIndex = indexOfCurrentTable > 0 ? count - 1 : indexOfCurrentTable - 1;
+                var prevIndex = indexOfCurrentTable == 0 ? count - 1 : indexOfCurrentTable - 1;
 
                 (var embed, var components) = GetTablesContent(prevIndex, tables);
 
-                await message.ModifyAsync(m => m.Embed = embed.Build());
+                await message.ModifyAsync(m =>
+                {
+                    m.Embed = embed.Build();
+                    m.Components = components.Build();
+                });
                 await FollowupAsync();
             }
             else
