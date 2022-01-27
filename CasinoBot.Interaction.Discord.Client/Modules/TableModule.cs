@@ -1,4 +1,5 @@
 ﻿using CasinoBot.Domain.Interfaces;
+using CasinoBot.Domain.Models.Tables;
 using Discord;
 using Discord.Interactions;
 using Discord.WebSocket;
@@ -39,32 +40,9 @@ namespace CasinoBot.Interaction.Discord.Client.Modules
                 return;
             }
 
-            var embed = new EmbedBuilder()
-                .WithTitle("Tables");
+            var tables = getTablesResponse.Value!;
 
-            var components = new ComponentBuilder();
-
-            var tables = getTablesResponse.Value;
-            if (tables is null || !tables.Any())
-            {
-                embed.WithDescription("There are no tables in this server yet");
-            }
-            else
-            {
-                var table = tables.First();
-                var count = tables.Count();
-                embed.WithDescription($"{table.TableType}");
-
-                if (count > 1)
-                {
-                    // TODO: emotes instead of text
-                    components.WithButton(emote: _nextButton, customId: $"nextTable:{table.TableId}");
-                    components.WithButton(emote: _prevButton, customId: $"prevTable:{table.TableId}");
-
-                }
-            }
-            components.WithButton(emote: _prevButton, customId: $"prevTable:{1}");
-            components.WithButton(emote: _nextButton, customId: $"nextTable:{1}");
+            (var embed, var components) = GetTablesContent(0, tables);
 
             await FollowupAsync(components: components.Build(), embed: embed.Build());
         }
@@ -74,18 +52,31 @@ namespace CasinoBot.Interaction.Discord.Client.Modules
         #region Components
 
         [ComponentInteraction("nextTable:*")]
-        public async Task NextTable()
+        public async Task NextTable(string tableId)
         {
             if (Context.Interaction is SocketMessageComponent socketMessage)
             {
+                await DeferAsync();
+                var indexOfCurrentTable = int.Parse(tableId);
                 var message = socketMessage.Message;
-                var x = int.Parse(message.Embeds.First().Title.Split(' ').Last()) + 1;
 
-                var embed = new EmbedBuilder()
-                    .WithTitle($"Tables {x}");
+                var getTablesResponse = await _gameDataStore.GetTablesByGuild(Context.Guild.Id);
+
+                if (!getTablesResponse.IsSuccessful)
+                {
+                    await FollowupAsync("Your command has resulted in an error");
+                    return;
+                }
+
+                var tables = getTablesResponse.Value!;
+                var count = tables.Count();
+
+                var prevIndex = indexOfCurrentTable > 0 ? count - 1 : indexOfCurrentTable - 1;
+
+                (var embed, var components) = GetTablesContent(prevIndex, tables);
 
                 await message.ModifyAsync(m => m.Embed = embed.Build());
-                await RespondAsync();
+                await FollowupAsync();
             }
             else
             {
@@ -94,23 +85,67 @@ namespace CasinoBot.Interaction.Discord.Client.Modules
         }
 
         [ComponentInteraction("prevTable:*")]
-        public async Task PrevTable()
+        public async Task PrevTable(string tableId)
         {
             if (Context.Interaction is SocketMessageComponent socketMessage)
             {
+                await DeferAsync();
+                var indexOfCurrentTable = int.Parse(tableId);
                 var message = socketMessage.Message;
-                var x = int.Parse(message.Embeds.First().Title.Split(' ').Last()) + 1;
 
-                var embed = new EmbedBuilder()
-                    .WithTitle($"Tables {x}");
+                var getTablesResponse = await _gameDataStore.GetTablesByGuild(Context.Guild.Id);
+
+                if (!getTablesResponse.IsSuccessful)
+                {
+                    await FollowupAsync("Your command has resulted in an error");
+                    return;
+                }
+
+                var tables = getTablesResponse.Value!;
+                var count = tables.Count();
+
+                var nextIndex = (indexOfCurrentTable + 1) % count;
+
+                (var embed, var components) = GetTablesContent(nextIndex, tables);
 
                 await message.ModifyAsync(m => m.Embed = embed.Build());
-                await RespondAsync();
+                await FollowupAsync();
             }
             else
             {
                 await _loggingService.LogErrorMessage($"Unkown interaction type {Context.Interaction.GetType().Name} encountered in {nameof(NextTable)}");
             }
+        }
+
+        #endregion
+
+        #region Helpers
+
+        private static (EmbedBuilder embed, ComponentBuilder componentBuilder) GetTablesContent(int indexOfTableToShow, IEnumerable<Table> tables)
+        {
+            var embed = new EmbedBuilder()
+                .WithTitle("Tables");
+
+            var components = new ComponentBuilder();
+
+            if (!tables.Any())
+            {
+                embed.WithDescription("There are no tables in this server yet");
+            }
+            else
+            {
+                var count = tables.Count();
+                var table = tables.Skip(indexOfTableToShow).First();
+                embed.WithDescription($"{table.TableType}");
+
+                if (count > 1)
+                {
+                    components.WithButton(emote: _nextButton, customId: $"nextTable:{indexOfTableToShow}");
+                    components.WithButton(emote: _prevButton, customId: $"prevTable:{indexOfTableToShow}");
+                }
+            }
+
+            return (embed, components);
         }
 
         #endregion
