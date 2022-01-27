@@ -1,4 +1,5 @@
-﻿using CasinoBot.Domain.Interfaces;
+﻿using CasinoBot.Domain.Enums;
+using CasinoBot.Domain.Interfaces;
 using CasinoBot.Domain.Models.Tables;
 using Discord;
 using Discord.Interactions;
@@ -47,6 +48,22 @@ namespace CasinoBot.Interaction.Discord.Client.Modules
             await FollowupAsync(components: components.Build(), embed: embed.Build());
         }
 
+        [SlashCommand("create", "Add a table to this server")]
+        public async Task AddTable([Summary(description: "The type of game hosted at this table")]TableType tableType)
+        {
+            await DeferAsync();
+
+            if (Context.Guild is null)
+            {
+                await FollowupAsync("This action can only be performed within a server");
+                return;
+            }
+
+            await _gameDataStore.CreateTable(Context.Guild.Id, tableType);
+
+            await FollowupAsync($"Succesfully added a {tableType} table!");
+        }
+
         #endregion
 
         #region Components
@@ -70,10 +87,9 @@ namespace CasinoBot.Interaction.Discord.Client.Modules
 
                 var tables = getTablesResponse.Value!;
                 var count = tables.Count();
+                var nextIndex = (indexOfCurrentTable + 1) % count;
 
-                var prevIndex = indexOfCurrentTable > 0 ? count - 1 : indexOfCurrentTable - 1;
-
-                (var embed, var components) = GetTablesContent(prevIndex, tables);
+                (var embed, var components) = GetTablesContent(nextIndex, tables);
 
                 await message.ModifyAsync(m => m.Embed = embed.Build());
                 await FollowupAsync();
@@ -103,10 +119,9 @@ namespace CasinoBot.Interaction.Discord.Client.Modules
 
                 var tables = getTablesResponse.Value!;
                 var count = tables.Count();
+                var prevIndex = indexOfCurrentTable > 0 ? count - 1 : indexOfCurrentTable - 1;
 
-                var nextIndex = (indexOfCurrentTable + 1) % count;
-
-                (var embed, var components) = GetTablesContent(nextIndex, tables);
+                (var embed, var components) = GetTablesContent(prevIndex, tables);
 
                 await message.ModifyAsync(m => m.Embed = embed.Build());
                 await FollowupAsync();
@@ -136,12 +151,12 @@ namespace CasinoBot.Interaction.Discord.Client.Modules
             {
                 var count = tables.Count();
                 var table = tables.Skip(indexOfTableToShow).First();
-                embed.WithDescription($"{table.TableType}");
+                embed.WithDescription($"{table.TableType} {table.TableId}");
 
                 if (count > 1)
                 {
-                    components.WithButton(emote: _nextButton, customId: $"nextTable:{indexOfTableToShow}");
                     components.WithButton(emote: _prevButton, customId: $"prevTable:{indexOfTableToShow}");
+                    components.WithButton(emote: _nextButton, customId: $"nextTable:{indexOfTableToShow}");
                 }
             }
 
