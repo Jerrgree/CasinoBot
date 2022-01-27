@@ -76,6 +76,7 @@ namespace CasinoBot.SqlDataStore
                         .Tables
                         .Include(t => t.UserTables)
                         .Where(t => t.GuildId == guildId)
+                        .OrderBy(t => t.TableId)
                         .ToListAsync();
 
                 var domainTables = tables.Select(t => new DomainTable()
@@ -102,6 +103,7 @@ namespace CasinoBot.SqlDataStore
                         .Tables
                         .Include(t => t.UserTables)
                         .Where(t => t.UserTables.Any(ut => ut.UserId == playerId))
+                        .OrderBy(t => t.TableId)
                         .ToListAsync();
 
                 var domainTables = tables.Select(t => new DomainTable()
@@ -170,12 +172,13 @@ namespace CasinoBot.SqlDataStore
                 var userTables = await _dbContext
                     .UserTables
                     .Where(ut => ut.TableId == tableId)
+                    .OrderBy(ut => ut.UserId)
                     .ToListAsync();
 
                 var players = userTables.Select(ut => new Player<T>()
                 {
                     PlayerId = ut.UserId,
-                    PlayerState = JsonConvert.DeserializeObject<T>(ut.State)
+                    PlayerState = JsonConvert.DeserializeObject<T>(ut.State)!
                 }).ToList();
 
                 return new Response<IEnumerable<Player<T>>?>(players);
