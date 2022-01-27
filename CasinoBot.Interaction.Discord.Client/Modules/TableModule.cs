@@ -144,7 +144,7 @@ namespace CasinoBot.Interaction.Discord.Client.Modules
 
         #region Helpers
 
-        private static (EmbedBuilder embed, ComponentBuilder componentBuilder) GetTablesContent(int indexOfTableToShow, IEnumerable<Table> tables)
+        private static (EmbedBuilder embed, ComponentBuilder componentBuilder) GetTablesContent(int indexOfTableToShow, IList<Table> tables)
         {
             var embed = new EmbedBuilder()
                 .WithTitle("Tables");
@@ -157,8 +157,8 @@ namespace CasinoBot.Interaction.Discord.Client.Modules
             }
             else
             {
-                var count = tables.Count();
-                var table = tables.Skip(indexOfTableToShow).First();
+                var count = tables.Count;
+                var table = tables[indexOfTableToShow];
                 embed.WithDescription($"{table.TableType} {table.TableId}");
 
                 if (count > 1)

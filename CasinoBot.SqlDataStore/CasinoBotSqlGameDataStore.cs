@@ -68,7 +68,7 @@ namespace CasinoBot.SqlDataStore
             return new Response();
         }
 
-        public async Task<Response<IEnumerable<DomainTable>?>> GetTablesByGuild(ulong guildId)
+        public async Task<Response<IList<DomainTable>?>> GetTablesByGuild(ulong guildId)
         {
             try
             {
@@ -86,16 +86,16 @@ namespace CasinoBot.SqlDataStore
                     PlayerIds = t.UserTables.Select(ut => ut.UserId).ToList()
                 }).ToList();
 
-                return new Response<IEnumerable<DomainTable>?>(domainTables);
+                return new Response<IList<DomainTable>?>(domainTables);
             }
             catch (Exception ex)
             {
                 var errorCode = HandleException(ex);
-                return new Response<IEnumerable<DomainTable>?>(false, errorCode, null);
+                return new Response<IList<DomainTable>?>(false, errorCode, null);
             }
         }
 
-        public async Task<Response<IEnumerable<DomainTable>?>> GetTablesByPlayer(ulong playerId)
+        public async Task<Response<IList<DomainTable>?>> GetTablesByPlayer(ulong playerId)
         {
             try
             {
@@ -113,12 +113,12 @@ namespace CasinoBot.SqlDataStore
                     PlayerIds = t.UserTables.Select(ut => ut.UserId).ToList()
                 }).ToList();
 
-                return new Response<IEnumerable<DomainTable>?>(domainTables);
+                return new Response<IList<DomainTable>?>(domainTables);
             }
             catch (Exception ex)
             {
                 var errorCode = HandleException(ex);
-                return new Response<IEnumerable<DomainTable>?>(false, errorCode, null);
+                return new Response<IList<DomainTable>?>(false, errorCode, null);
             }
         }
 
@@ -165,7 +165,7 @@ namespace CasinoBot.SqlDataStore
             return new Response();
         }
 
-        public async Task<Response<IEnumerable<Player<T>>?>> GetPlayersByTable<T>(long tableId) where T : class
+        public async Task<Response<IList<Player<T>>?>> GetPlayersByTable<T>(long tableId) where T : class
         {
             try
             {
@@ -181,12 +181,12 @@ namespace CasinoBot.SqlDataStore
                     PlayerState = JsonConvert.DeserializeObject<T>(ut.State)!
                 }).ToList();
 
-                return new Response<IEnumerable<Player<T>>?>(players);
+                return new Response<IList<Player<T>>?>(players);
             }
             catch (Exception ex)
             {
                 var errorCode = HandleException(ex); // Maybe return an enum instead?
-                return new Response<IEnumerable<Player<T>>?>(false, errorCode, null);
+                return new Response<IList<Player<T>>?>(false, errorCode, null);
             }
         }
 
