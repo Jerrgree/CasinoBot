@@ -73,11 +73,23 @@ namespace CasinoBot.Interaction.Discord.Client.Modules
         {
             if (Context.Interaction is SocketMessageComponent socketMessage)
             {
-                await DeferAsync();
                 var indexOfCurrentTable = int.Parse(tableId);
                 var message = socketMessage.Message;
 
+                var lastActivity = message.EditedTimestamp ?? message.CreatedAt;
+
+                var diff = DateTimeOffset.Now.Subtract(lastActivity).Ticks;
+
+                // TODO: ideally, find a way to remove these buttons entirely after 5 minutes
+                if (diff >= (TimeSpan.TicksPerMinute * 5))
+                {
+                    await RespondAsync("This message cannot be modifed after 5 minutes.", ephemeral: true);
+                    return;
+                }
+
                 var getTablesResponse = await _gameDataStore.GetTablesByGuild(Context.Guild.Id);
+
+                await DeferAsync();
 
                 if (!getTablesResponse.IsSuccessful)
                 {
@@ -96,6 +108,7 @@ namespace CasinoBot.Interaction.Discord.Client.Modules
                     m.Embed = embed.Build();
                     m.Components = components.Build();
                 });
+
                 await FollowupAsync();
             }
             else
@@ -109,9 +122,20 @@ namespace CasinoBot.Interaction.Discord.Client.Modules
         {
             if (Context.Interaction is SocketMessageComponent socketMessage)
             {
-                await DeferAsync();
                 var indexOfCurrentTable = int.Parse(tableId);
                 var message = socketMessage.Message;
+
+                var lastActivity = message.EditedTimestamp ?? message.CreatedAt;
+
+                var diff = DateTimeOffset.Now.Subtract(lastActivity).Ticks;
+
+                // TODO: ideally, find a way to remove these buttons entirely after 5 minutes
+                if (diff >= (TimeSpan.TicksPerMinute * 5))
+                {
+                    await RespondAsync("This message cannot be modifed after 5 minutes.", ephemeral: true);
+                    return;
+                }
+                await DeferAsync();
 
                 var getTablesResponse = await _gameDataStore.GetTablesByGuild(Context.Guild.Id);
 
