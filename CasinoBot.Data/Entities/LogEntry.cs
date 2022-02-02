@@ -6,7 +6,7 @@ namespace CasinoBot.Data.Entities
     {
         public long LogEntryId { get; set; }
         public LogLevel LogLevel { get; set; }
-        public string LogMessage { get; set; }
+        public string LogMessage { get; set; } = null!;
         public DateTime LogDateTimeUtc { get; set; }
         public ulong? UserId { get; set; }
         public Guid? TraceId { get; set; }
