@@ -175,11 +175,8 @@ namespace CasinoBot.SqlDataStore
                     .OrderBy(ut => ut.UserId)
                     .ToListAsync();
 
-                var players = userTables.Select(ut => new Player<T>()
-                {
-                    PlayerId = ut.UserId,
-                    PlayerState = JsonConvert.DeserializeObject<T>(ut.State)!
-                }).ToList();
+                var players = userTables.Select(ut => new Player<T>(ut.UserId, JsonConvert.DeserializeObject<T>(ut.State)!))
+                    .ToList();
 
                 return new Response<IList<Player<T>>?>(players);
             }

@@ -9,5 +9,10 @@ namespace CasinoBot.Domain.Models.Tables
         public TableType TableType { get; set; }
 
         public IEnumerable<ulong> PlayerIds { get; set; }
+
+        public Table()
+        {
+            PlayerIds = new List<ulong>();
+        }
     }
 }

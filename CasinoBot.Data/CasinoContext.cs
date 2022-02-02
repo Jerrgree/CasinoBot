@@ -5,9 +5,9 @@ namespace CasinoBot.Data
 {
     public class CasinoContext : DbContext
     {
-        public DbSet<Table> Tables { get; set; }
-        public DbSet<UserTable> UserTables { get; set; }
-        public DbSet<LogEntry> LogEntries { get; set; }
+        public DbSet<Table> Tables { get; set; } = null!;
+        public DbSet<UserTable> UserTables { get; set; } = null!;
+        public DbSet<LogEntry> LogEntries { get; set; } = null!;
 
         public CasinoContext(DbContextOptions<CasinoContext> dbContextOptions) : base(dbContextOptions) { }
 

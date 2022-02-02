@@ -4,8 +4,8 @@
     {
         public ulong UserId { get; set; }
         public long TableId { get; set; }
-        public string State { get; set; }
+        public string State { get; set; } = null!;
 
-        public Table Table { get; set; }
+        public Table Table { get; set; } = null!;
     }
 }
