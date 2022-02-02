@@ -172,11 +172,8 @@ namespace CasinoBot.SqlDataStore
                     .Where(ut => ut.TableId == tableId)
                     .ToListAsync();
 
-                var players = userTables.Select(ut => new Player<T>()
-                {
-                    PlayerId = ut.UserId,
-                    PlayerState = JsonConvert.DeserializeObject<T>(ut.State)
-                }).ToList();
+                var players = userTables.Select(ut => new Player<T>(ut.UserId, JsonConvert.DeserializeObject<T>(ut.State)!))
+                    .ToList();
 
                 return new Response<IEnumerable<Player<T>>?>(players);
             }
