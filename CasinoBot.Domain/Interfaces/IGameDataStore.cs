@@ -25,13 +25,13 @@ namespace CasinoBot.Domain.Interfaces
         /// </summary>
         /// <param name="guildId">The guild id</param>
         /// <returns></returns>
-        Task<Response<IEnumerable<Table>?>> GetTablesByGuild(ulong guildId);
+        Task<Response<IList<Table>?>> GetTablesByGuild(ulong guildId);
         /// <summary>
         /// Retrieves tables that a player is playing in
         /// </summary>
         /// <param name="playerId"></param>
         /// <returns></returns>
-        Task<Response<IEnumerable<Table>?>> GetTablesByPlayer(ulong playerId);
+        Task<Response<IList<Table>?>> GetTablesByPlayer(ulong playerId);
         /// <summary>
         /// Adds a player to the table
         /// </summary>
@@ -56,6 +56,6 @@ namespace CasinoBot.Domain.Interfaces
         /// <typeparam name="T">The type of state that the players are using</typeparam>
         /// <param name="tableId">The id of the table</param>
         /// <returns></returns>
-        Task<Response<IEnumerable<Player<T>>?>> GetPlayersByTable<T>(long tableId) where T : class;
+        Task<Response<IList<Player<T>>?>> GetPlayersByTable<T>(long tableId) where T : class;
     }
 }
