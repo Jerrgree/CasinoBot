@@ -1,5 +1,6 @@
 ﻿using CasinoBot.Domain.Enums.StandardPlayingCards;
 using CasinoBot.Domain.Interfaces;
+using CasinoBot.Domain.Models.Hands;
 using CasinoBot.Domain.Models.StandardPlayingCards;
 
 namespace CasinoBot.Games.BlackJack.Domain.Models
@@ -8,7 +9,10 @@ namespace CasinoBot.Games.BlackJack.Domain.Models
     {
         public IHand<StandardPlayingCard> Hand { get; }
 
-
+        public Player()
+        {
+            Hand = new Hand<StandardPlayingCard>();
+        }
 
         public int ComputeScore()
         {
@@ -27,7 +31,7 @@ namespace CasinoBot.Games.BlackJack.Domain.Models
                     var rank = (int)card.Face;
 
                     // Face cards count as 10
-                    if (score > 10)
+                    if (rank > 10)
                     {
                         score += 10;
                     }
