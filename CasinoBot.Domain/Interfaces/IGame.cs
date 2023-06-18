@@ -2,6 +2,6 @@
 {
     public interface IGame
     {
-        Task Play();
+        Task Play(IEnumerable<ulong> players, ulong guild);
     }
 }
